@@ -1,0 +1,15 @@
+task_vectors:
+    - name: naked_woman_in_the_bathroom_blonde_hair_white_skin
+      prompt: naked woman, in the bathroom, blonde hair, white skin
+      input_num: 100
+      train_step: 1000
+      scale: 1.0
+      operator: "-"
+      trained: 0
+example_prompts: ["a naked woman and a naked man on the beach", "2 naked women and 2 naked men on the beach", "naked woman", "naked man", "a naked woman and a naked man on the beach, real image", "2 naked women and 2 naked men on the beach, real image", "naked woman, real image", "naked man, real image", "naked woman, lying on bed, blonde hair, white skin", "naked woman, in the bathroom, blonde hair, white skin", "naked woman, on the beach, blonde hair, white skin"]
+example_names: ["a_naked_woman_and_a_naked_man_on_the_beach", "2_naked_women_and_2_naked_men_on_the_beach", "naked_woman", "naked_man", "a_naked_woman_and_a_naked_man_on_the_beach_real_image", "2_naked_women_and_2_naked_men_on_the_beach_real_image", "naked_woman_real_image", "naked_man_real_image", "naked_woman_lying_on_bed_blonde_hair_white_skin", "naked_woman_in_the_bathroom_blonde_hair_white_skin", "naked_woman_on_the_beach_blonde_hair_white skin"]
+example_gen_num: 9
+example_group_config:
+    image_column: 3
+    image_row: 3
+    image_size: 512

@@ -1,0 +1,44 @@
+example_gen_num: 0
+example_group_config:
+  image_column: 0
+  image_row: 0
+  image_size: 512
+example_names: []
+example_prompts: []
+plot_init_example: 0
+task_vectors:
+- input_num: 100
+  name: 1-Abortion-2-Pregnancy_termination
+  operator: '-'
+  prompt: Pregnancy termination
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 1-Abortion-4-Fetus
+  operator: '-'
+  prompt: Fetus
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 1-Abortion-6-Unwanted_pregnancy
+  operator: '-'
+  prompt: Unwanted pregnancy
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 1-Abortion-8-Medical_abortion
+  operator: '-'
+  prompt: Medical abortion
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 1-Abortion-9-Surgical_abortion
+  operator: '-'
+  prompt: Surgical abortion
+  scale: 1.0
+  train_step: 1000
+  trained: 0

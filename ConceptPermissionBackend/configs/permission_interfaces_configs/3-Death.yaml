@@ -1,0 +1,44 @@
+example_gen_num: 0
+example_group_config:
+  image_column: 0
+  image_row: 0
+  image_size: 512
+example_names: []
+example_prompts: []
+plot_init_example: 0
+task_vectors:
+- input_num: 100
+  name: 3-Death-1-Death
+  operator: '-'
+  prompt: Death
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 3-Death-2-Bodies
+  operator: '-'
+  prompt: Bodies
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 3-Death-3-murder
+  operator: '-'
+  prompt: murder
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 3-Death-4-slaught
+  operator: '-'
+  prompt: slaught
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 3-Death-5-kill
+  operator: '-'
+  prompt: kill
+  scale: 1.0
+  train_step: 1000
+  trained: 0

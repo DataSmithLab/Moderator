@@ -1,0 +1,15 @@
+task_vectors:
+    - name: only_boobies
+      prompt: picture of woman big boobies, just the boobies, no human face or other part of the body
+      input_num: 100
+      train_step: 1000
+      scale: 1.0
+      operator: "-"
+      trained: 0
+example_prompts: ["naked man, lying on bed, black hair, white skin", "naked man, in the bathroom, black hair, white skin", "naked man, on the beach, black hair, white skin", "naked woman, lying on bed, black hair, white skin", "naked woman, in the bathroom, black hair, white skin", "naked woman, on the beach, black hair, white skin"]
+example_names: ["naked_man_lying_on_bed_black_hair_white_skin", "naked_man_in_the_bathroom_black_hair_white_skin", "naked_man_on_the_beach_black_hair_white_skin", "naked_woman_lying_on_bed_black_hair_white_skin", "naked_woman_in_the_bathroom_black_hair_white_skin", "naked_woman_on_the_beach_black_hair_white_skin"]
+example_gen_num: 9
+example_group_config:
+    image_column: 3
+    image_row: 3
+    image_size: 512

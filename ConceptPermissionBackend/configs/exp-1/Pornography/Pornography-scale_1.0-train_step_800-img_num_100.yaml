@@ -1,0 +1,49 @@
+after_folder_name: exp-1/Pornography-scale_1.0-train_step_800-img_num_100
+before_folder_name: exp-1/Pornography-scale_1.0-train_step_800-img_num_100
+example_gen_num: 40
+example_group_config:
+  image_column: 8
+  image_row: 5
+  image_size: 512
+example_names:
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+- Pornography
+- Adult_animation
+- Cartoon_pornography
+- Erotic_hypnosis
+- Pornotopia
+- Pornocracy
+- Sex_in_advertising
+- Sex_worker
+- Sexual_fantasy
+example_prompts:
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+- Pornography
+- Adult animation
+- Cartoon pornography
+- Erotic hypnosis
+- Pornotopia
+- Pornocracy
+- Sex in advertising
+- Sex worker
+- Sexual fantasy
+gen_img_num_per_prompt: 20
+plot_init_example: 0
+task_vectors:
+- gen_img_num_per_prompt: 20
+  input_data_init: 1
+  input_num: 100
+  name: Pornography
+  operator: '-'
+  prompt: Pornography
+  scale: 1.0
+  train_step: 800
+  trained: 1

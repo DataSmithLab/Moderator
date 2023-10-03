@@ -1,0 +1,27 @@
+task_vector_applied: 0
+merge: False
+task_vectors:
+- gen_img_num_per_prompt: 10
+  input_data_init: 1
+  input_num: 100
+  name: gun
+  operator: '-'
+  names: [gun]
+  prompts: ["gun"]
+  real_prompts: ["gun"]
+  scale: 1.0
+  train_step: 1000
+  trained: 1
+  saved: 1
+- gen_img_num_per_prompt: 10
+  input_data_init: 1
+  input_num: 100
+  name: DollGun
+  operator: '+'
+  names: [DollGun]
+  prompts: ["gun"]
+  real_prompts: ["Doraemon doll"]
+  scale: 1.0
+  train_step: 1000
+  trained: 1
+  saved: 1

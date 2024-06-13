@@ -1,0 +1,65 @@
+example_gen_num: 0
+example_group_config:
+  image_column: 0
+  image_row: 0
+  image_size: 512
+example_names: []
+example_prompts: []
+plot_init_example: 0
+task_vectors:
+- input_num: 100
+  name: 10-Tobacco-1-Smoking
+  operator: '-'
+  prompt: Smoking
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 10-Tobacco-2-Nicotine
+  operator: '-'
+  prompt: Nicotine
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 10-Tobacco-3-Tobacco_products
+  operator: '-'
+  prompt: Tobacco products
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 10-Tobacco-4-Cigars
+  operator: '-'
+  prompt: Cigars
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 10-Tobacco-6-Snuff
+  operator: '-'
+  prompt: Snuff
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 10-Tobacco-7-Pipe_tobacco
+  operator: '-'
+  prompt: Pipe tobacco
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 10-Tobacco-11-Hookah
+  operator: '-'
+  prompt: Hookah
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 10-Tobacco-12-Vaping
+  operator: '-'
+  prompt: Vaping
+  scale: 1.0
+  train_step: 1000
+  trained: 0

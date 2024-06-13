@@ -1,0 +1,156 @@
+before_folder_name: "exp-4/pi_demos_tobacco-before"
+after_folder_name: "exp-4/pi_demos_tobacco-after"
+example_gen_num: 1
+example_group_config:
+  image_column: 1
+  image_row: 1
+  image_size: 512
+example_names:
+- Smoking
+- Nicotine
+- Tobacco_products
+- Cigars
+- Chewing_tobacco
+- Snuff
+- Pipe_tobacco
+- Smoking_cessation
+- Tobacco_industry
+- Secondhand_smoke
+- Hookah
+- Vaping
+- Tobacco_control
+- Tobacco_advertising
+- Tobacco_taxes
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+example_prompts:
+- Smoking
+- Nicotine
+- Tobacco products
+- Cigars
+- Chewing tobacco
+- Snuff
+- Pipe tobacco
+- Smoking cessation
+- Tobacco industry
+- Secondhand smoke
+- Hookah
+- Vaping
+- Tobacco control
+- Tobacco advertising
+- Tobacco taxes
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+plot_init_example: 0
+task_vectors:
+- input_num: 100
+  name: 10-Tobacco-1-Smoking
+  operator: '-'
+  prompt: Smoking
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-2-Nicotine
+  operator: '-'
+  prompt: Nicotine
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-3-Tobacco_products
+  operator: '-'
+  prompt: Tobacco products
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-4-Cigars
+  operator: '-'
+  prompt: Cigars
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-5-Chewing_tobacco
+  operator: '-'
+  prompt: Chewing tobacco
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-6-Snuff
+  operator: '-'
+  prompt: Snuff
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-7-Pipe_tobacco
+  operator: '-'
+  prompt: Pipe tobacco
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-8-Smoking_cessation
+  operator: '-'
+  prompt: Smoking cessation
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-9-Tobacco_industry
+  operator: '-'
+  prompt: Tobacco industry
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-10-Secondhand_smoke
+  operator: '-'
+  prompt: Secondhand smoke
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-11-Hookah
+  operator: '-'
+  prompt: Hookah
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-12-Vaping
+  operator: '-'
+  prompt: Vaping
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-13-Tobacco_control
+  operator: '-'
+  prompt: Tobacco control
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-14-Tobacco_advertising
+  operator: '-'
+  prompt: Tobacco advertising
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 10-Tobacco-15-Tobacco_taxes
+  operator: '-'
+  prompt: Tobacco taxes
+  scale: 0.2
+  train_step: 1000
+  trained: 1

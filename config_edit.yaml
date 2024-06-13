@@ -1,0 +1,23 @@
+task_vector_applied: 0
+merge: False
+task_vectors:
+- gen_img_num_per_prompt: 10
+  input_data_init: 1
+  input_num: 100
+  name: gun
+  operator: '-'
+  image_name: "gun"
+  expand_type: "synonyms"
+  label_context:
+    obj: "gun"
+    sty: ""
+    act: ""
+  real_context:
+    obj: "gun"
+    sty: ""
+    act: ""
+  expand_key: "obj"
+  scale: 1.0
+  train_step: 1000
+  trained: 1
+  saved: 1

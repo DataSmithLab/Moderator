@@ -1,0 +1,44 @@
+example_gen_num: 0
+example_group_config:
+  image_column: 0
+  image_row: 0
+  image_size: 512
+example_names: []
+example_prompts: []
+plot_init_example: 0
+task_vectors:
+- input_num: 100
+  name: 8-Strip_Clubs-3-Dance_bar
+  operator: '-'
+  prompt: Dance bar
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 8-Strip_Clubs-5-Sex_club
+  operator: '-'
+  prompt: Sex club
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 8-Strip_Clubs-6-Sex_show
+  operator: '-'
+  prompt: Sex show
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 8-Strip_Clubs-7-Stripper
+  operator: '-'
+  prompt: Stripper
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 8-Strip_Clubs-8-Striptease
+  operator: '-'
+  prompt: Striptease
+  scale: 1.0
+  train_step: 1000
+  trained: 0

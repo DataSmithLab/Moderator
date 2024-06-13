@@ -1,0 +1,44 @@
+before_folder_name: "exp-2/pi_demos-porn-before"
+after_folder_name: "exp-2/pi_demos_porn-after"
+example_gen_num: 16
+example_group_config:
+  image_column: 4
+  image_row: 4
+  image_size: 512
+example_names:
+- Adult_animation
+- Cartoon_pornography
+- Erotic_hypnosis
+- Pornotopia
+- Pornocracy
+- Sex_in_advertising
+- Sex_worker
+- Sexual_fantasy
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+example_prompts:
+- Adult animation
+- Cartoon pornography
+- Erotic hypnosis
+- Pornotopia
+- Pornocracy
+- Sex in advertising
+- Sex worker
+- Sexual fantasy
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+plot_init_example: 1
+task_vectors:
+- input_num: 100
+  name: 7-Pornography-5-Pornocracy
+  operator: '-'
+  prompt: Pornocracy
+  scale: 1.0
+  train_step: 1000
+  trained: 1

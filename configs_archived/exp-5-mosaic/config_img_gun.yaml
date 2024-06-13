@@ -1,0 +1,6 @@
+folder_name: /exp-5/gun-example
+img_gen_num: 20
+img_names: [a-gun-1]
+img_prompts: ["Create an image of an astronaut in a futuristic spacesuit, standing on the surface of an alien planet, holding a gun."]
+gen_img_num_per_prompt: 1
+unet_path: "/root/autodl-fs/unet_backup/unet_original_diffusion_pytorch_model.bin"

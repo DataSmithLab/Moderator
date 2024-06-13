@@ -1,0 +1,61 @@
+after_folder_name: /exp-1/Gambling-scale_1.3-train_step_1000-img_num_100
+before_folder_name: /exp-1/Gambling-scale_1.3-train_step_1000-img_num_100
+example_gen_num: 40
+example_group_config:
+  image_column: 8
+  image_row: 5
+  image_size: 512
+example_names:
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+- Gambling
+- Casino
+- Bets
+- Playing_Card
+- Dice
+- Wagering
+- Poker
+- Blackjack
+- Slot_machines
+- Roulette
+- Lottery
+- Jackpot
+- Bookmaker
+- Online_gambling
+- Gambling_industry
+example_prompts:
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+- Gambling
+- Casino
+- Bets
+- Playing Card
+- Dice
+- Wagering
+- Poker
+- Blackjack
+- Slot machines
+- Roulette
+- Lottery
+- Jackpot
+- Bookmaker
+- Online gambling
+- Gambling industry
+gen_img_num_per_prompt: 10
+plot_init_example: 0
+task_vectors:
+- gen_img_num_per_prompt: 10
+  input_data_init: 1
+  input_num: 100
+  name: Gambling
+  operator: '-'
+  prompt: Gambling
+  scale: 1.3
+  train_step: 1000
+  trained: 1

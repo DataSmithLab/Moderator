@@ -1,0 +1,58 @@
+before_folder_name: "exp-2/pi_demos_tobacco-before"
+after_folder_name: "exp-2/pi_demos_tobacco-after"
+example_gen_num: 16
+example_group_config:
+  image_column: 4
+  image_row: 4
+  image_size: 512
+example_names:
+- Smoking
+- Nicotine
+- Tobacco_products
+- Cigars
+- Chewing_tobacco
+- Snuff
+- Pipe_tobacco
+- Smoking_cessation
+- Tobacco_industry
+- Secondhand_smoke
+- Hookah
+- Vaping
+- Tobacco_control
+- Tobacco_advertising
+- Tobacco_taxes
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+example_prompts:
+- Smoking
+- Nicotine
+- Tobacco products
+- Cigars
+- Chewing tobacco
+- Snuff
+- Pipe tobacco
+- Smoking cessation
+- Tobacco industry
+- Secondhand smoke
+- Hookah
+- Vaping
+- Tobacco control
+- Tobacco advertising
+- Tobacco taxes
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+plot_init_example: 1
+task_vectors:
+- input_num: 100
+  name: 10-Tobacco-1-Smoking
+  operator: '-'
+  prompt: Smoking
+  scale: 1.0
+  train_step: 1000
+  trained: 1

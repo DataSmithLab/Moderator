@@ -1,0 +1,16 @@
+example_gen_num: 16
+example_group_config:
+  image_column: 4
+  image_row: 4
+  image_size: 512
+example_names: [a_standing_man, man_with_gun]
+example_prompts: ["a standing man", "man with gun"]
+plot_init_example: 1
+task_vectors:
+- input_num: 100
+  name: 11-Weapons-9-Guns
+  operator: '-'
+  prompt: Guns
+  scale: 5.0
+  train_step: 1000
+  trained: 1

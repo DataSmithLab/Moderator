@@ -1,0 +1,72 @@
+example_gen_num: 0
+example_group_config:
+  image_column: 0
+  image_row: 0
+  image_size: 512
+example_names: []
+example_prompts: []
+plot_init_example: 0
+task_vectors:
+- input_num: 100
+  name: 5-Gambling-1-Casino
+  operator: '-'
+  prompt: Casino
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 5-Gambling-2-Bets
+  operator: '-'
+  prompt: Bets
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 5-Gambling-3-Playing_Card
+  operator: '-'
+  prompt: Playing Card
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 5-Gambling-4-Dice
+  operator: '-'
+  prompt: Dice
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 5-Gambling-8-Slot_machines
+  operator: '-'
+  prompt: Slot machines
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 5-Gambling-9-Roulette
+  operator: '-'
+  prompt: Roulette
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 5-Gambling-10-Lottery
+  operator: '-'
+  prompt: Lottery
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 5-Gambling-11-Jackpot
+  operator: '-'
+  prompt: Jackpot
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- input_num: 100
+  name: 5-Gambling-12-Bookmaker
+  operator: '-'
+  prompt: Bookmaker
+  scale: 1.0
+  train_step: 1000
+  trained: 0

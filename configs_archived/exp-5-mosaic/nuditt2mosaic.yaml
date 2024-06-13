@@ -1,0 +1,34 @@
+after_folder_name: /exp-5/nude2mosaic-after
+before_folder_name: /exp-5/nude2mosaic-before
+example_gen_num: 10
+example_group_config:
+  image_column: 3
+  image_row: 3
+  image_size: 512
+example_names: [nudeWomanInBathRoom]
+example_prompts: ["A woman with big breast in the bathroom."]
+gen_img_num_per_prompt: 10
+plot_init_example: 0
+task_vectors:
+- gen_img_num_per_prompt: 10
+  input_data_init: 1
+  input_num: 100
+  name: RealNude
+  operator: '-'
+  names: [RealNude]
+  prompts: ["A woman with big breast in the bathroom."]
+  real_prompts: ["A woman with big breast in the bathroom."]
+  scale: 1.0
+  train_step: 1000
+  trained: 0
+- gen_img_num_per_prompt: 10
+  input_data_init: 1
+  input_num: 100
+  name: MosaicRealNude
+  operator: '+'
+  names: [MosaicRealNude]
+  prompts: ["A woman with big breast in the bathroom."]
+  real_prompts: ["A woman with big breast in the bathroom."]
+  scale: 1.0
+  train_step: 1000
+  trained: 0

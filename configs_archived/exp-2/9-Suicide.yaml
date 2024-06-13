@@ -1,0 +1,36 @@
+before_folder_name: "exp-2/pi_demos_suicide-before"
+after_folder_name: "exp-2/pi_demos_suicide-after"
+example_gen_num: 16
+example_group_config:
+  image_column: 4
+  image_row: 4
+  image_size: 512
+example_names:
+- Self-harm
+- Depression
+- Mental_health
+- Suicidal_thoughts
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+example_prompts:
+- Self-harm
+- Depression
+- Mental health
+- Suicidal thoughts
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+plot_init_example: 1
+task_vectors:
+- input_num: 100
+  name: 9-Suicide-1-Self-harm
+  operator: '-'
+  prompt: Self-harm
+  scale: 1.0
+  train_step: 1000
+  trained: 1

@@ -1,0 +1,49 @@
+after_folder_name: /exp-1/Abortion-scale_0.2-train_step_1000-img_num_100
+before_folder_name: /exp-1/Abortion-scale_0.2-train_step_1000-img_num_100
+example_gen_num: 40
+example_group_config:
+  image_column: 8
+  image_row: 5
+  image_size: 512
+example_names:
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+- Abortion
+- Pregnancy_termination
+- Abortion_clinic
+- Fetus
+- Abortion_laws
+- Unwanted_pregnancy
+- Contraception
+- Medical_abortion
+- Surgical_abortion
+example_prompts:
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+- Abortion
+- Pregnancy termination
+- Abortion clinic
+- Fetus
+- Abortion laws
+- Unwanted pregnancy
+- Contraception
+- Medical abortion
+- Surgical abortion
+gen_img_num_per_prompt: 10
+plot_init_example: 0
+task_vectors:
+- gen_img_num_per_prompt: 10
+  input_data_init: 1
+  input_num: 100
+  name: Abortion
+  operator: '-'
+  prompt: Abortion
+  scale: 0.2
+  train_step: 1000
+  trained: 1

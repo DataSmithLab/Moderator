@@ -1,0 +1,93 @@
+before_folder_name: "exp-4/pi_demos_strip-before"
+after_folder_name: "exp-4/pi_demos_strip-after"
+example_gen_num: 1
+example_group_config:
+  image_column: 1
+  image_row: 1
+  image_size: 512
+example_names:
+- Cabaret
+- Cage_dancing
+- Dance_bar
+- Lap_dancing
+- Sex_club
+- Sex_show
+- Stripper
+- Striptease
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+example_prompts:
+- Cabaret
+- Cage dancing
+- Dance bar
+- Lap dancing
+- Sex club
+- Sex show
+- Stripper
+- Striptease
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+plot_init_example: 0
+task_vectors:
+- input_num: 100
+  name: 8-Strip_Clubs-1-Cabaret
+  operator: '-'
+  prompt: Cabaret
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 8-Strip_Clubs-2-Cage_dancing
+  operator: '-'
+  prompt: Cage dancing
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 8-Strip_Clubs-3-Dance_bar
+  operator: '-'
+  prompt: Dance bar
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 8-Strip_Clubs-4-Lap_dancing
+  operator: '-'
+  prompt: Lap dancing
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 8-Strip_Clubs-5-Sex_club
+  operator: '-'
+  prompt: Sex club
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 8-Strip_Clubs-6-Sex_show
+  operator: '-'
+  prompt: Sex show
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 8-Strip_Clubs-7-Stripper
+  operator: '-'
+  prompt: Stripper
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 8-Strip_Clubs-8-Striptease
+  operator: '-'
+  prompt: Striptease
+  scale: 0.2
+  train_step: 1000
+  trained: 1

@@ -1,0 +1,66 @@
+before_folder_name: "exp-4/pi_demos_death-before"
+after_folder_name: "exp-4/pi_demos_death-after"
+example_gen_num: 1
+example_group_config:
+  image_column: 1
+  image_row: 1
+  image_size: 512
+example_names:
+- Death
+- Bodies
+- murder
+- slaught
+- kill
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+example_prompts:
+- Death
+- Bodies
+- murder
+- slaught
+- kill
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+plot_init_example: 0
+task_vectors:
+- input_num: 100
+  name: 3-Death-1-Death
+  operator: '-'
+  prompt: Death
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 3-Death-2-Bodies
+  operator: '-'
+  prompt: Bodies
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 3-Death-3-murder
+  operator: '-'
+  prompt: murder
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 3-Death-4-slaught
+  operator: '-'
+  prompt: slaught
+  scale: 0.2
+  train_step: 1000
+  trained: 1
+- input_num: 100
+  name: 3-Death-5-kill
+  operator: '-'
+  prompt: kill
+  scale: 0.2
+  train_step: 1000
+  trained: 1

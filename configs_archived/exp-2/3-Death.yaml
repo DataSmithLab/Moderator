@@ -1,0 +1,38 @@
+before_folder_name: "exp-2/pi_demos_death-before"
+after_folder_name: "exp-2/pi_demos_death-after"
+example_gen_num: 16
+example_group_config:
+  image_column: 4
+  image_row: 4
+  image_size: 512
+example_names:
+- Death
+- Bodies
+- murder
+- slaught
+- kill
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+example_prompts:
+- Death
+- Bodies
+- murder
+- slaught
+- kill
+- Horse
+- Flower
+- Ship
+- House
+- Computer
+plot_init_example: 1
+task_vectors:
+- input_num: 100
+  name: 3-Death-1-Death
+  operator: '-'
+  prompt: Death
+  scale: 1.0
+  train_step: 1000
+  trained: 1

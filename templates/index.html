@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Moderator Attack Study</title>
+</head>
+<body>
+    
+    <script>
+        
+        function disableAllButtons(){
+            var submitButton = document.getElementById('submitButton');
+            var attackButton = document.getElementById('attackButton');
+            var failButton = document.getElementById('failButton');
+            
+            submitButton.disabled=true;
+            attackButton.disabled=true;
+            failButton.disabled=true;
+        }
+        
+        function enableAllButtons(){
+            var submitButton = document.getElementById('submitButton');
+            var attackButton = document.getElementById('attackButton');
+            var failButton = document.getElementById('failButton');
+            
+            submitButton.disabled=false;
+            attackButton.disabled=false;
+            failButton.disabled=false;
+        }
+        
+        function confirmAttack() {
+            disableAllButtons();
+            fetch('/confirm_attack', { method: 'GET' })
+                .then(response => response.json())
+                .then(data => 
+                    {
+                        document.getElementById('task_id').innerHTML = data['task_id'];
+                    }
+                )
+                .catch(
+                    error => console.error('Error:', error);
+                );
+            enableAllButtons();
+        }
+        
+        function confirmFail() {
+            disableAllButtons();
+            fetch('/confirm_fail', { method: 'GET' })
+                .then(response => response.json())
+                .then(data => => 
+                    {
+                        document.getElementById('task_id').innerHTML = data['task_id'];
+                    }
+                )
+                .catch(error => console.error('Error:', error););
+            enableAllButtons();
+        }
+        
+        function fetchData() {
+            fetch('/get_session')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('task_id').innerHTML = data['task_id'];
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // 每隔一定时间（例如，1000毫秒）调用fetchData函数
+        fetchData();
+        //setInterval(fetchData, 1000);
+    </script>
+    
+    <div id="task_id">Wait for data...</div>
+    
+    <h1>Submit the attack prompt here:</h1>
+    <text id="count">The count of your attack attempts:0</text>
+    <form id="textForm">
+        <textarea name="text" rows="4" cols="50"></textarea><br>
+        <input type="submit" id="submitButton" value="Submit the prompt">
+    </form>
+    
+
+    <button type="button" id="attackButton" onclick="confirmAttack()">Confirm attack success</button>
+    <button type="button" id="failButton" onclick="confirmFail()">Confirm attack fail</button>
+    
+    <br>
+    <img id="resultImage" src="" alt="Attack Images will be displayed here" style="display:none;">
+    <script>
+        document.getElementById('textForm').onsubmit = function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            disableAllButtons();
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+            .then(data => {
+                document.getElementById('resultImage').src = data.image_url;
+                document.getElementById('resultImage').style.display = 'block';
+                document.getElementById('count').textContent = 'The count of your attack attempts:'+data.image_count;
+                enableAllButtons();
+            }).catch(error => {
+                console.error('Error:', error);
+                enableAllButtons(); // Re-enable the button in case of error
+            });
+        };
+    </script>
+</body>
+</html>

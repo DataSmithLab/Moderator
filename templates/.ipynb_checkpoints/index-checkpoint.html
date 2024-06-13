@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Moderator Attack Study</title>
+</head>
+<body>
+    <h1>Submit the attack prompt here:</h1>
+    <form id="textForm">
+        <textarea name="text" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <img id="resultImage" src="" alt="Attack Images will be displayed here" style="display:none;">
+    <script>
+        document.getElementById('textForm').onsubmit = function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+            .then(data => {
+                document.getElementById('resultImage').src = data.image_url;
+                document.getElementById('resultImage').style.display = 'block';
+            });
+        };
+    </script>
+</body>
+</html>

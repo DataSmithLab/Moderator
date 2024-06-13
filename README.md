@@ -1,4 +1,4 @@
-# Access Control for Stable Diffusion
+# Moderator: Moderating Text-to-Image Diffusion Models through Fine-grained Context-based Policies
 
 ## 1-Prerequisite
 
@@ -28,6 +28,18 @@ pip install -e git+https://github.com/openai/CLIP.git
 export LLMEthicsPatchHome=/root/autodl-fs # input your work dir
 pip install xformer=0.0.20
 pip install flask
+```
+
+### 1-4-Install Ollama
+```
+curl -fsSL https://ollama.com/install.sh | sh
+pip install ollama
+ollama serve
+```
+For the next steps, start another terminal, because the ollama serve need to run
+```
+
+ollama pull llama3
 ```
 
 ### 1-4-Clone LLMEthicsPatches

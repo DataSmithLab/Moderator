@@ -13,3 +13,4 @@ toml==0.10.2
 voluptuous==0.13.1
 huggingface-hub==0.15.1
 open-clip-torch==2.20.0
+ollama

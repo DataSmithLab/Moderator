@@ -10,6 +10,9 @@ class QueryExpansion:
     def string_to_list(self, s):
         try:
             # 使用eval函数将字符串转换为列表
+            print("before", s)
+            s = s[s.index("["):s.index("]")]
+            print(s)
             result = eval(s)
             # 检查转换后的结果是否为列表
             if isinstance(result, list):
@@ -38,7 +41,9 @@ class QueryExpansion:
         else:
             assert type in ["synonyms", "sub-concepts", "description"]
             raise AssertionError
-        prompt += "Please return the response list in Python format as ['vocabulary1', 'vocabulary2', ...]. Not any addtional words are permitted."
+        prompt += '''Please return the response list in Python format as 
+                    "['vocabulary1', 'vocabulary2', ...]". 
+                    Not any addtional words are permitted.'''
 
         response = self.query_ollama(
             question_prompt=prompt
@@ -97,6 +102,7 @@ class QueryExpansion:
             type=expand_1_type,
             expand_num=expand_num_1
         )
+        print(word_list)
         final_context_list = []
         for expanded_context_desc in expanded_context_desc_list:
             for word in [context_desc[expand_key_1]]+word_list:

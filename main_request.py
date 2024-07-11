@@ -39,7 +39,10 @@ def pretrain_img_request_example(config_yaml):
     
 #pretrain_img_request_example("/home/featurize/work/LLMEthicsPatches/config_img.yaml")
 
-edit_request_example('/home/featurize/work/LLMEthicsPatches/atk_configs/atk-1-mickey.yaml')
-edit_request_example('/home/featurize/work/LLMEthicsPatches/atk_configs/atk-2-fight.yaml')
-edit_request_example('/home/featurize/work/LLMEthicsPatches/atk_configs/atk-3-bloody.yaml')
-edit_request_example('/home/featurize/work/LLMEthicsPatches/atk_configs/atk-4-horrorSnake.yaml')
+edit_request_example(
+    config_yaml="config_edit.yaml"
+)
+#edit_request_example('/home/featurize/work/LLMEthicsPatches/atk_configs/atk-1-mickey.yaml')
+#edit_request_example('/home/featurize/work/LLMEthicsPatches/atk_configs/atk-2-fight.yaml')
+#edit_request_example('/home/featurize/work/LLMEthicsPatches/atk_configs/atk-3-bloody.yaml')
+#edit_request_example('/home/featurize/work/LLMEthicsPatches/atk_configs/atk-4-horrorSnake.yaml')

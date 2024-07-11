@@ -5,8 +5,13 @@
 ### 1-1-Install stable diffusion
 
 ```
-git lfs install
-git lfs clone https://huggingface.co/runwayml/stable-diffusion-v1-5.git
+#git lfs install
+apt-get install git-lfs
+#git lfs clone https://huggingface.co/runwayml/stable-diffusion-v1-5.git
+git lfs clone https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0.git
+mkdir unet_backup
+cp stable-diffusion-xl-base-1.0/unet/diffusion_pytorch_model.safetensors stable-diffusion-xl-base-1.0/unet_backup/diffusion_pytorch_model.safetensors
+#cp stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin unet_backup/unet_original_diffusion_pytorch_model.bin
 ```
 
 Install stable diffusion-v-1.5 from hugging face.
@@ -15,7 +20,10 @@ Install stable diffusion-v-1.5 from hugging face.
 
 ```
 pip install git+https://github.com/huggingface/diffusers.git
+cd ConceptPermission
 pip install -U -r requirements.txt
+mkdir data
+cd ..
 ```
 
 Install diffuser module from GitHub.
@@ -23,22 +31,21 @@ Install diffuser module from GitHub.
 ### 1-3-Other dependecies
 
 ```
-pip install -e git+https://github.com/CompVis/taming-transformers.git
-pip install -e git+https://github.com/openai/CLIP.git
-export LLMEthicsPatchHome=/root/autodl-fs # input your work dir
-pip install xformer=0.0.20
+pip install -e git+https://github.com/CompVis/taming-transformers.git#egg=taming_transformers
+pip install -e git+https://github.com/openai/CLIP.git#egg=CLIP
+export LLMEthicsPatchHome=/home/featurize/work/ModeratorAE#/root/autodl-fs # input your work dir
+pip install xformer==0.0.20
 pip install flask
+pip install matplotlib
+pip install scipy
+pip install httpx
+pip install socksio
 ```
 
 ### 1-4-Install Ollama
 ```
 curl -fsSL https://ollama.com/install.sh | sh
 pip install ollama
-ollama serve
-```
-For the next steps, start another terminal, because the ollama serve need to run
-```
-
 ollama pull llama3
 ```
 

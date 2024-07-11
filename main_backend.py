@@ -10,7 +10,7 @@ from lib.utils_config import exp_config_gen
 class conceptPermissionConfig:
     def __init__(self, model_name="1.5"):
         self.model_name = model_name
-        self.work_dir = "/home/featurize/work"#os.environ.get("LLMEthicsPatchHome")
+        self.work_dir = "/home/featurize/work/ModeratorAE"#os.environ.get("LLMEthicsPatchHome")
         if self.model_name == "1.5":
             self.sd_path = self.work_dir+"/stable-diffusion-v1-5"
             self.sd_unet_path=self.work_dir+"/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin"
@@ -20,10 +20,14 @@ class conceptPermissionConfig:
             self.sd_path = self.work_dir+"/stable-diffusion-xl-base-1.0"
             self.sd_unet_path=self.work_dir+"/stable-diffusion-xl-base-1.0/unet/diffusion_pytorch_model.safetensors"
             self.pretrain_unet_path=self.work_dir+"/stable-diffusion-xl-base-1.0/unet_backup/diffusion_pytorch_model.safetensors"
-        self.data_dir=self.work_dir+"/LLMEthicsPatches/data"
-        self.finetuned_models_dir=self.work_dir+"/LLMEthicsPatches/files/models_finetune/"
-        self.edited_models_dir=self.work_dir+"/LLMEthicsPatches/files/models_edited/"
-        self.task_vectors_dir=self.work_dir+"/LLMEthicsPatches/files/task_vectors/"
+        #self.data_dir=self.work_dir+"/LLMEthicsPatches/data"
+        #self.finetuned_models_dir=self.work_dir+"/LLMEthicsPatches/files/models_finetune/"
+        #self.edited_models_dir=self.work_dir+"/LLMEthicsPatches/files/models_edited/"
+        #self.task_vectors_dir=self.work_dir+"/LLMEthicsPatches/files/task_vectors/"      
+        self.data_dir=self.work_dir+"/ConceptPermission/data"
+        self.finetuned_models_dir=self.work_dir+"/ConceptPermission/files/models_finetune/"
+        self.edited_models_dir=self.work_dir+"/ConceptPermission/files/models_edited/"
+        self.task_vectors_dir=self.work_dir+"/ConceptPermission/files/task_vectors/"
 
 @app.route('/pretrain_img_generate', methods=['POST'])
 def pretrain_img_generate():

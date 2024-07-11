@@ -45,7 +45,11 @@ def check_trained_already(task_vector:dict, model_name:str="xl"):
         else:
             return 0
     else:
-        assert model_name=="xl"
+        #assert model_name=="xl"
+        if os.path.exists(task_vector['finetuned_model_dir']+"/output_model.bin") and os.path.exists(task_vector['finetuned_model_dir']+"/finetuned_unet.bin"):
+            return 1
+        else:
+            return 0
     
 def check_task_vector_saved(task_vector:dict, model_name:str="xl"):
     if model_name=="xl":

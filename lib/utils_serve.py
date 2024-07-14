@@ -195,7 +195,7 @@ def finetune_model_xl(task_vector:dict, model_id):
     command_str = " ".join(args)
     print(command_str)
     subprocess.run(command, check=True)
-    finetuned_unet_extract_safetensors(task_vector['finetuned_model_dir']+"/output_model.safetensors", task_vector['finetuned_model_dir']+"/finetuned_unet.safetensors", "/home/featurize/work/stable-diffusion-xl-base-1.0/unet_backup/diffusion_pytorch_model.safetensors")
+    finetuned_unet_extract_safetensors(task_vector['finetuned_model_dir']+"/output_model.safetensors", task_vector['finetuned_model_dir']+"/finetuned_unet.safetensors", "/home/featurize/work/ModeratorAE/stable-diffusion-xl-base-1.0/unet_backup/diffusion_pytorch_model.safetensors")
 
 def finetune_model(task_vector:dict, model_name):
     make_folder(task_vector['finetuned_model_dir'])

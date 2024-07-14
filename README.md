@@ -15,6 +15,7 @@ mkdir unet_backup
 mkdir files
 cd files
 mkdir models_finetune
+mkdir task_vectors
 cp stable-diffusion-xl-base-1.0/unet/diffusion_pytorch_model.safetensors stable-diffusion-xl-base-1.0/unet_backup/diffusion_pytorch_model.safetensors
 #cp stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin unet_backup/unet_original_diffusion_pytorch_model.bin
 ```
@@ -45,6 +46,11 @@ pip install matplotlib
 pip install scipy
 pip install httpx
 pip install socksio
+pip install xformer
+pip install bitsandbytes
+
+git lfs clone https://huggingface.co/openai/clip-vit-large-patch14
+git lfs clone https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k
 ```
 
 ### 1-4-Install Ollama

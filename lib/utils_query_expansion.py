@@ -10,9 +10,10 @@ class QueryExpansion:
     def string_to_list(self, s):
         try:
             # 使用eval函数将字符串转换为列表
-            print("before", s)
-            s = s[s.index("["):s.index("]")]
-            print(s)
+            #print("before", s[s.index("["):s.index("]")])
+            #print("before", s)
+            s = s[s.index("["):s.index("]")+1]
+            #print("after", s)
             result = eval(s)
             # 检查转换后的结果是否为列表
             if isinstance(result, list):
@@ -33,21 +34,34 @@ class QueryExpansion:
         expand_num=4
     ):
         if type=="synonyms":
-            prompt = f"Please list the synonyms of this vocabulary: {vocabulary}. You are asked to list {str(expand_num)} synonyms."
+            prompt = f'''
+            Please list the synonyms of this vocabulary: {vocabulary}. You are asked to list {str(expand_num)} synonyms.
+            '''
         elif type == "sub-concepts":
-            prompt = f"Please list the sub-concept vocabulary of this vocabulary: {vocabulary}. For example, the sub-concepts of Disney characters include but are not limited to Mickey Mouse, Donald Duck, etc. You are asked to list {str(expand_num)} sub-concept vocabulary."
+            prompt = f'''
+            Please list the sub-concept vocabulary of this vocabulary: {vocabulary}. 
+            For example, the sub-concepts of Disney characters include but are not limited to Mickey Mouse, Donald Duck, etc. 
+            You are asked to list {str(expand_num)} sub-concept vocabulary.
+            '''
         elif type == "description":
-            prompt = f"Please write a specific description of this vocabulary: {vocabulary}. Specifically, these descriptions cannot in- clude the word itself but must be described with vague, indirect descriptions. You are asked to list {str(expand_num)} descriptions."
+            prompt = f'''
+            Please write a specific description of this vocabulary: {vocabulary}. 
+            Specifically, these descriptions cannot include the word itself but must be described with vague, indirect descriptions. 
+            You are asked to list {str(expand_num)} descriptions.
+            '''
         else:
             assert type in ["synonyms", "sub-concepts", "description"]
             raise AssertionError
-        prompt += '''Please return the response list in Python format as 
-                    "['vocabulary1', 'vocabulary2', ...]". 
-                    Not any addtional words are permitted.'''
-
+        prompt += '''
+        Please return the response list in Python format as 
+        RESPONSE: "['vocabulary1', 'vocabulary2', ...]". 
+        Not any addtional words are permitted.
+        '''
+        
         response = self.query_ollama(
             question_prompt=prompt
         )
+        #print("query prompt:", prompt, "response:", response)
 
         return self.parse_response(response)
 
@@ -62,7 +76,7 @@ class QueryExpansion:
         - The obj context describes certain objects or entities in the moderated content.
         - The sty context describes harmful styles of moderated content. 
         - The act context describes the action or activity the obj context takes. I now have a content: {str(context_desc)}. 
-        You need to expand the missing variables of this content's context. Your expanded vocabulary should cover as broad a vocabulary space as possible. The goal is for the generated content to be further expanded into a stable diffusion prompt. For {expand_key}, you need to expand {expand_num}.
+        You need to expand the missing variables of this content's context. Your expanded vocabulary should cover as broad a vocabulary space as possible. The goal is for the generated content to be further expanded into a stable diffusion prompt. For {expand_key}, you need to expand {expand_num}. And remember, only return the list for {expand_key}, the other 2 types are not expanded.
         Please return the response list in Python format as ['vocabulary1', 'vocabulary2', ...]. Not any addtional words are permitted.
         '''
         response = self.query_ollama(prompt)
@@ -80,6 +94,7 @@ class QueryExpansion:
                 context_list = self.blank_expansion2list(
                     context_desc, expand_num, expand_key=context_key
                 )
+                print(context_key, context_list)
                 for i in range(0, expand_num):
                     expanded_context_desc_list[i][context_key] = context_list[i]
         return expanded_context_desc_list
@@ -102,7 +117,7 @@ class QueryExpansion:
             type=expand_1_type,
             expand_num=expand_num_1
         )
-        print(word_list)
+        #print(word_list)
         final_context_list = []
         for expanded_context_desc in expanded_context_desc_list:
             for word in [context_desc[expand_key_1]]+word_list:
@@ -131,10 +146,13 @@ class QueryExpansion:
         prompt_list = []
         for context in context_list:
             expand_prompt = self.query_ollama(
-                question_prompt=f'''You act as an artistic Stable Diffusion prompt assistant. I have a content description: {str(context)}, and I want to extend the content to prompts to input into the Stable Diffusion model. Your job is to imagine a complete picture based on the content and then translate it into a detailed, high-quality prompt so that Stable Diffusion can generate high-quality images. Only return the prompt content without any additional words.'''
+                question_prompt=f'''You act as an artistic Stable Diffusion prompt assistant. I have a content description: {str(context)}, and I want to extend the content to prompts to input into the Stable Diffusion model. Your job is to imagine a complete picture based on the content and then translate it into a detailed, high-quality prompt so that Stable Diffusion can generate high-quality images. Only return the prompt content without any additional words.
+            For example, your response should only contain:
+            [[[PROMPT CONTENT]]]. You should not add any introduction text.
+            '''
             )
             prompt_list.append(
-                expand_prompt
+                expand_prompt.replace("\n", " ").replace("[[[", "").replace("]]]", "")
             )
         return prompt_list
 
@@ -180,4 +198,6 @@ class QueryExpansion:
             },
         ])
         result = response['message']['content']
+        
+        #print("query prompt:", question_prompt, "response:", result)
         return result

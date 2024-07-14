@@ -5,11 +5,16 @@
 ### 1-1-Install stable diffusion
 
 ```
+conda activate /home/featurize/work/ModeratorAE/moderator_env
+conda env create --prefix /home/featurize/work/ModeratorAE/moderator_env --file moderator.yaml
 #git lfs install
 apt-get install git-lfs
 #git lfs clone https://huggingface.co/runwayml/stable-diffusion-v1-5.git
 git lfs clone https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0.git
 mkdir unet_backup
+mkdir files
+cd files
+mkdir models_finetune
 cp stable-diffusion-xl-base-1.0/unet/diffusion_pytorch_model.safetensors stable-diffusion-xl-base-1.0/unet_backup/diffusion_pytorch_model.safetensors
 #cp stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin unet_backup/unet_original_diffusion_pytorch_model.bin
 ```
@@ -58,6 +63,9 @@ chmod +x ./init.sh
 ./init.sh
 chmod +x ./test.sh
 ./test.sh
+
+git clone https://github.com/kohya-ss/sd-scripts.git
+git checkout sdxl
 ```
 
 ## 2-Quick Start

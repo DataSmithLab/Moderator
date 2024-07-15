@@ -34,6 +34,9 @@ class ModeratorPolicyManager:
     def __init__(self):
         self.database_path = "database/policy_database.json"
         self.policy_database = self.load_database()
+        
+    def get_all_policies(self):
+        return list(self.policy_database.keys())
 
     def load_database(self):
         with open(self.database_path, "r")as f:

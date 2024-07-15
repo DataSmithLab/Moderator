@@ -24,6 +24,18 @@ def pretrain_img_generate():
     )
     return pretrain_image_list
 
+@app.route('/get_all_policies', methods=['GET'])
+def get_all_policies():
+    policy_name_list = policy_manager.get_all_policies()
+    return jsonify(policy_name_list)
+
+@app.route('/get_policy_by_name', methods=['POST'])
+def get_policy_by_name():
+    config_data = request.get_data()
+    config_data =  json.loads(config_data)
+    policy_name = config_data["policy_name"]
+    return jsonify(policy_manager.get_policy(policy_name=policy_name))
+
 @app.route('/img_generate', methods=['POST'])
 def img_generate():
     config_data = request.get_data()

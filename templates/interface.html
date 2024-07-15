@@ -74,6 +74,7 @@
         <button>Activate Chosen Policies</button>
 
         <div class="policy-list">
+            <!--
             <div class="policy-item">
                 <input type="checkbox"> Policy-Bloody-Removing
                 <div>
@@ -81,14 +82,15 @@
                     <button>Delete</button>
                 </div>
             </div>
+            -->
         </div>
     </div>
     
     <div class="panel">
         <h2>Moderation Policy</h2>
         <div>
-            <label for="policy_name">Object:</label>
-            <input type="text" id="object">
+            <label for="policy_name">Policy Name:</label>
+            <input type="text" id="policy_name">
         </div>
         <div>
             <label for="method">Method:</label>
@@ -158,7 +160,7 @@
     function generatePolicy() {
         const generatePolicyButton = document.getElementById('generate-policy-button');
         generatePolicyButton.disabled = true;
-        const policy = {
+        const policy_dict = {
             src_content: {
                 obj: document.getElementById('src_obj').value,
                 sty: document.getElementById('src_sty').value,
@@ -174,13 +176,14 @@
             expand_context: document.getElementById('expand_context').value,
             expand_type: document.getElementById('expand_method').value
         };
+        const policy_name = document.getElementById('policy_name').value
 
         fetch("http://"+full_domain+'/model_edit', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(policy)
+            body: JSON.stringify({"policy_name":policy_name, "policy_dict":policy_dict})
         })
         .then(response => response.json())
         .then(data => {
@@ -237,6 +240,62 @@
         });
         generateImageButton.disabled = false;
     }
+    
+    function loadPolicies() {
+        fetch("http://"+full_domain+'/get_all_policies')
+        .then(response => response.json())
+        .then(data => {
+            const policyList = document.getElementById('policy-list');
+            data.forEach(policyName => {
+                const policyItem = document.createElement('div');
+                policyItem.className = 'policy-item';
+                policyItem.innerHTML = '<input type="checkbox"> ${policyName} <div> <button onclick="editPolicy('${policyName}')">Edit</button> <button onclick="deletePolicy('${policyName}')">Delete</button></div>';
+                policyList.appendChild(policyItem);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    
+    function editPolicy(policyName) {
+        fetch("http://"+full_domain+'/get_policy_by_name?name=${policyName}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ policy_name: policyName })
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+            document.getElementById('policy_name').value = policyName;
+            
+            document.getElementById('src_obj').value = data.src_content.obj;
+            document.getElementById('dst_obj').value = data.dst_content.obj;
+            
+            document.getElementById('src_sty').value = data.src_content.sty;
+            document.getElementById('dst_sty').value = data.dst_content.sty;
+            
+            document.getElementById('src_act').value = data.src_content.act;
+            document.getElementById('dst_act').value = data.dst_content.act;
+            
+            document.getElementById('method').value = data.method;
+            document.getElementById('purpose').value = data.purpose;
+            
+            document.getElementById('expand_context').value = data.expand_context;
+            document.getElementById('expand_type').value = data.expand_method;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    
+    window.onload = function() {
+        document.getElementById('generate-image-button').disabled = false;
+        loadPolicies();
+    }
+    
 </script>
 
 </body>

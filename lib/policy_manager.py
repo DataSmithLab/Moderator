@@ -179,10 +179,9 @@ class ModeratorPolicyManager:
         }
         with open("tmp_config_generate.yaml", "w+") as f:
             yaml.dump(img_yaml, f)
-        image_name_list_str = self.call_edit_generate_backend(
+        image_name_list = self.call_edit_generate_backend(
             config_yaml="tmp_config_generate.yaml"
         )
-        image_name_list = eval(image_name_list_str)
         return image_name_list
 
     def call_pretrain_model(

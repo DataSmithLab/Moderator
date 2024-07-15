@@ -6,6 +6,10 @@ import torch
 import datetime
 from lib.utils_query_expansion import QueryExpansion
 
+import shutil
+
+    
+
 query_expansion = QueryExpansion(model_name="llama3")
 # 定义图像拼接函数
 def image_compose(images_path, image_names, image_column, image_row, image_size, image_save_path):
@@ -95,6 +99,7 @@ def generate_demo_imgs(model_id, gen_num, gen_prompt_list, gen_filename_list, fo
         )
     pipe = pipe.to("cuda")
     image_names = []
+    flask_image_names = []
     for gen_prompt, gen_filename in zip(gen_prompt_list, gen_filename_list):
         gen_folder_path = folder_name+"/"+gen_filename
         if os.path.exists(gen_folder_path):
@@ -107,7 +112,9 @@ def generate_demo_imgs(model_id, gen_num, gen_prompt_list, gen_filename_list, fo
                 image_name = "prompt-"+gen_filename+"-time-"+str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+"-"+str(idx)+".png"
                 image_names.append(image_name)
                 image.save(gen_folder_path+"/"+image_name)
-    return image_names
+                shutil.copy(gen_folder_path+"/"+image_name, "static"+"/"+image_name)
+                flask_image_names.append("/static"+"/"+image_name)
+    return flask_image_names
 
 def SD_pipe(model_id, model_name="xl"):
     if model_name == "1.5":

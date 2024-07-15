@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, abort
+from flask import Flask, request, render_template, redirect, url_for, session, jsonify, send_from_directory, abort
 import json
 app = Flask(__name__)
 from lib.utils_serve import model_edit, plot_imgs, edit_status_check, get_database
@@ -9,6 +9,10 @@ from lib.utils_config import exp_config_gen
 from lib.policy_manager import ModeratorPolicyManager
 
 policy_manager = ModeratorPolicyManager()
+
+@app.route('/index')
+def index():
+    return render_template('interface.html')
 
 @app.route('/pretrain_img_generate', methods=['POST'])
 def pretrain_img_generate():
@@ -47,3 +51,6 @@ def edit():
         policy_name=policy_name
     )
     return edit_flag
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=7417)

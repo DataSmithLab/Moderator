@@ -1,4 +1,4 @@
-name: moderator_env
+name: moderator
 channels:
   - defaults
 dependencies:
@@ -30,6 +30,7 @@ dependencies:
       - anyio==4.4.0
       - async-timeout==4.0.3
       - attrs==23.2.0
+      - bitsandbytes==0.43.1
       - blinker==1.8.2
       - cachetools==5.3.3
       - certifi==2024.7.4
@@ -132,6 +133,6 @@ dependencies:
       - wcwidth==0.2.13
       - werkzeug==3.0.3
       - xformer==1.0.1
+      - xformers==0.0.27
       - yarl==1.9.4
       - zipp==3.19.2
-prefix: /environment/miniconda3/envs/moderator_env

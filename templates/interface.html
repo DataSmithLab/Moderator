@@ -73,7 +73,7 @@
         <button>Add Policy</button>
         <button>Activate Chosen Policies</button>
 
-        <div class="policy-list">
+        <div class="policy-list" id="policy-list">
             <!--
             <div class="policy-item">
                 <input type="checkbox"> Policy-Bloody-Removing
@@ -101,15 +101,15 @@
             </select>
         </div>
         <div>
-            <label for="object">Object:</label>
+            <label>Object:</label>
             <input type="text" id="src_obj"> -> <input type="text" id="dst_obj">
         </div>
         <div>
-            <label for="style">Style:</label>
+            <label>Style:</label>
             <input type="text" id="src_sty"> -> <input type="text" id="dst_sty">
         </div>
         <div>
-            <label for="action">Action:</label>
+            <label>Action:</label>
             <input type="text" id="src_act"> -> <input type="text" id="dst_act">
         </div>
         <div>
@@ -249,7 +249,13 @@
             data.forEach(policyName => {
                 const policyItem = document.createElement('div');
                 policyItem.className = 'policy-item';
-                policyItem.innerHTML = '<input type="checkbox"> ${policyName} <div> <button onclick="editPolicy('${policyName}')">Edit</button> <button onclick="deletePolicy('${policyName}')">Delete</button></div>';
+                policyItem.innerHTML = `
+                    <input type="checkbox"> ${policyName}
+                    <div>
+                        <button onclick="editPolicy('${policyName}')">Edit</button>
+                        <button onclick="deletePolicy('${policyName}')">Delete</button>
+                    </div>
+                `;
                 policyList.appendChild(policyItem);
             });
         })
@@ -291,10 +297,11 @@
         });
     }
     
-    window.onload = function() {
+    <!--window.onload = function() {}-->
+    document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('generate-image-button').disabled = false;
         loadPolicies();
-    }
+    })
     
 </script>
 

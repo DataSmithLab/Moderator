@@ -16,7 +16,7 @@
         }
         .panel {
             padding: 20px;
-            color: white;
+            color: black;
             border-radius: 5px;
             margin-bottom: 20px;
         }
@@ -24,14 +24,11 @@
             padding: 20px;
             color: white;
             border-radius: 5px;
-            width: 75%;
-            margin-left: auto; /* This pushes the div to the right */
-            margin-right: 0;
+            width: 100%;
         }
         .policy-list {
             overflow-y: auto;
             max-height: 500px;
-            background-color: grey;
             padding: 10px;
             border-radius: 5px;
         }
@@ -53,210 +50,132 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-3" style="background-color: white; min-height: 100vh;">
                 <div class="panel">
-                    <h4>Search Policies</h4>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Enter keyword">
-                    </div>
-                    <!--
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <select class="form-control">
-                                <option value="method">Method</option>
-                                <option value="content">Content</option>
-                            </select>
+                        <h4>Search Policies</h4>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter keyword">
                         </div>
-                        <div class="form-group col-md-6">
-                            <select class="form-control">
-                                <option value="harm">Harm</option>
-                                <option value="piracy">Piracy</option>
-                            </select>
+                        <button class="btn btn-light btn-block" id="add-policy-button" onclick="addPolicy()" style="background-color:lightblue">Add Policy</button>
+                    </div>
+                <hr>
+                <div class="panel">
+                        <h4>Policy List</h4>
+                        <hr>
+                        <div class="policy-list" id="policy-list">
+                            <!-- Policy items will be dynamically added here -->
                         </div>
                     </div>
-                    <button class="btn btn-light btn-block">Search Policies</button>
-                    <button class="btn btn-light btn-block">Clear</button>
-                    -->
-                    <button class="btn btn-light btn-block" id="add-policy-button" onclick="addPolicy()">Add Policy</button>
-                </div>
-                <div class="panel">
-                    <h4>Policy List</h4>
-                    <div class="policy-list" id="policy-list">
-                        <!-- Policy items will be dynamically added here -->
-                    </div>
-                </div>
             </div>
-            
-            <div class="col-md-3">
-                <div class="panel">
-                    <h4>Enter Example Prompt</h4>
-                    <textarea class="form-control" id="example-prompt" rows="15"></textarea>
-                    <button class="btn btn-light btn-block mt-2" onclick="generateImage()">Generate Image</button>
-                </div>
-            </div>
-            
-            <div class="col-md-6">
-                <div class="panel">
-                    <h4>Moderation Policy</h4>
-                    <div class="form-group">
-                        <!--<label for="policy_name">Policy Name:</label>-->
-                        <input type="text" class="form-control" id="policy_name" placeholder="Policy Name">
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" id="method">
-                            <option value="replace">REPLACE</option>
-                            <option value="remove">REMOVE</option>
-                            <option value="mosaic">MOSAIC</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" id="src_obj" placeholder="Source Object">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" id="dst_obj" placeholder="Destination Object">
+            <div class="col-9" style="background-color:#FEF7EC">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel" style="border-radius: 10%; background-color: #F5F5F5; height:511px;">
+                            <h4>Enter Example Prompt</h4>
+                            <textarea class="form-control" id="example-prompt" rows="15.5"></textarea>
+                            <button class="btn btn-light btn-block mt-2" onclick="generateImage()" style="background-color:#FFDAB9">Generate Image</button>
                         </div>
                     </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" id="src_sty" placeholder="Source Style">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" id="dst_sty" placeholder="Destination Style">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" id="src_act" placeholder="Source Action">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" id="dst_act" placeholder="Destination Action">
-                        </div>
-                    </div>
-                    
-                    <div class="container slider-container">
-                      <label>Scale:</label>
-                      <input type="range" class="custom-range" id="slider" min="0" max="100" step="1" value="100">
-                      <div class="progress mt-3">
-                        <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                    
-                    <style>
-                        .slider-container {
-                            width: 100%;
-                            height: 15%;
-                            max-width: 1200px;
-                            margin: 0 auto;
-                        }
 
-                        input[type=range] {
-                            -webkit-appearance: none;
-                            width: 100%;
-                            height: 8px;
-                            background: #ddd;
-                            outline: none;
-                            opacity: 0.7;
-                            transition: opacity 0.2s;
-                        }
+                    <div class="col-md-6">
+                        <div class="panel"  style="border-radius: 10%; background-color: #F5F5F5;">
+                            <h4>Moderation Policy</h4>
+                            <div class="form-group">
+                                <!--<label for="policy_name">Policy Name:</label>-->
+                                <input type="text" class="form-control" id="policy_name" placeholder="Policy Name">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" id="method">
+                                    <option value="replace">REPLACE</option>
+                                    <option value="remove">REMOVE</option>
+                                    <option value="mosaic">MOSAIC</option>
+                                </select>
+                            </div>
 
-                        input[type=range]:hover {
-                            opacity: 1;
-                        }
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="src_obj" placeholder="Source Object">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="dst_obj" placeholder="Destination Object">
+                                </div>
+                            </div>
 
-                        input[type=range]::-webkit-slider-thumb {
-                            -webkit-appearance: none;
-                            appearance: none;
-                            width: 25px;
-                            height: 25px;
-                            border-radius: 50%;
-                            background: #4CAF50; /* 改成你想要的颜色 */
-                            cursor: pointer;
-                        }
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="src_sty" placeholder="Source Style">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="dst_sty" placeholder="Destination Style">
+                                </div>
+                            </div>
 
-                        input[type=range]::-moz-range-thumb {
-                            width: 25px;
-                            height: 25px;
-                            border-radius: 50%;
-                            background: #4CAF50; /* 改成你想要的颜色 */
-                            cursor: pointer;
-                        }
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="src_act" placeholder="Source Action">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="dst_act" placeholder="Destination Action">
+                                </div>
+                            </div>
 
-                        .progress {
-                            height: 20px;
-                            background-color: #f3f3f3;
-                            border-radius: 5px;
-                            overflow: hidden;
-                        }
+                            <div class="container slider-container">
+                              <label>Scale:</label>
+                              <input type="range" class="custom-range" id="slider" min="0" max="100" step="1" value="100">
+                              <!--<div class="progress mt-3">
+                                <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>-->
+                            </div>
 
-                        .progress-bar {
-                            height: 100%;
-                            background-color: #4CAF50; /* 改成你想要的颜色 */
-                            transition: width 0.1s;
-                        }
-                    </style>
-                    
-                    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-                    
-                    <script>
-                      document.getElementById('slider').addEventListener('input', function() {
-                        var scale_value = this.value;
-                          <!--document.getElementById('progressBar').style.width = value + '%';-->
-                        <!--document.getElementById('progressBar').setAttribute('aria-valuenow', value);-->
-                        <!--document.getElementById('scaleValue').textContent = value; -->
-                      });
-                    </script>
-                    
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <select class="form-control" id="expand_method">
-                                <option value="sub-concepts">Sub-concepts</option>
-                                <option value="synonyms">Synonyms</option>
-                                <option value="description">Description</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <select class="form-control" id="expand_context">
-                                <option value="obj">obj</option>
-                                <option value="sty">sty</option>
-                                <option value="act">act</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <select class="form-control" id="purpose">
-                                <option value="piracy">Piracy</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <button class="btn btn-light btn-block" onclick="generatePolicy()">Generate Policy</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="example-section">
-                    <div class="row mt-4">
-                        <div class="col-md-6">
-                            <h4>Examples Before Moderation:</h4>
-                            <div id="before-moderation" class="example-images">
-                                <!-- Images will be displayed here -->
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <select class="form-control" id="expand_method">
+                                        <option value="sub-concepts">Sub-concepts</option>
+                                        <option value="synonyms">Synonyms</option>
+                                        <option value="description">Description</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <select class="form-control" id="expand_context">
+                                        <option value="obj">obj</option>
+                                        <option value="sty">sty</option>
+                                        <option value="act">act</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <select class="form-control" id="purpose">
+                                        <option value="piracy">Piracy</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <button class="btn btn-light btn-block" onclick="generatePolicy()" style="background-color:#FFB6C1">Save Policy</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <h4>Examples After Moderation:</h4>
-                            <div id="after-moderation" class="example-images">
-                                <!-- Images will be displayed here -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="example-section">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4>Examples Before Moderation:</h4>
+                                    <div id="before-moderation" class="example-images" style="border-radius: 10%; background-color: #F5F5F5; height: 500px;">
+                                        <!-- Images will be displayed here -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4>Examples After Moderation:</h4>
+                                    <div id="after-moderation" class="example-images" style="border-radius: 10%; background-color: #F5F5F5; height: 500px;">
+                                        <!-- Images will be displayed here -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -396,6 +315,7 @@
                             </div>
                         `;
                         policyList.appendChild(policyItem);
+                        const new_hr = document.createElement("hr")
                     });
                 })
                 .catch(error => {
@@ -438,6 +358,74 @@
 
         loadPolicies();
     </script>
+
+    <style>
+                            .slider-container {
+                                width: 100%;
+                                height: 50%;
+                                max-width: 1200px;
+                                margin: 0 auto;
+                            }
+
+                            input[type=range] {
+                                -webkit-appearance: none;
+                                width: 100%;
+                                height: 8px;
+                                background: #ddd;
+                                outline: none;
+                                opacity: 0.7;
+                                transition: opacity 0.2s;
+                            }
+
+                            input[type=range]:hover {
+                                opacity: 1;
+                            }
+
+                            input[type=range]::-webkit-slider-thumb {
+                                -webkit-appearance: none;
+                                appearance: none;
+                                width: 25px;
+                                height: 25px;
+                                border-radius: 50%;
+                                background: #4CAF50; /* 改成你想要的颜色 */
+                                cursor: pointer;
+                            }
+
+                            input[type=range]::-moz-range-thumb {
+                                width: 25px;
+                                height: 25px;
+                                border-radius: 50%;
+                                background: #4CAF50; /* 改成你想要的颜色 */
+                                cursor: pointer;
+                            }
+
+                            .progress {
+                                height: 10px;
+                                background-color: #f3f3f3;
+                                border-radius: 5px;
+                                overflow: hidden;
+                            }
+
+                            .progress-bar {
+                                height: 100%;
+                                background-color: #4CAF50; /* 改成你想要的颜色 */
+                                transition: width 0.1s;
+                            }
+                        </style>
+
+                        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+                        <script>
+                          document.getElementById('slider').addEventListener('input', function() {
+                            var scale_value = this.value;
+                              <!--document.getElementById('progressBar').style.width = value + '%';-->
+                            <!--document.getElementById('progressBar').setAttribute('aria-valuenow', value);-->
+                            <!--document.getElementById('scaleValue').textContent = value; -->
+                          });
+                        </script>
 </body>
 
 </html>

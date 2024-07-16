@@ -10,7 +10,8 @@ import shutil
 
     
 
-query_expansion = QueryExpansion(model_name="llama3")
+#query_expansion = QueryExpansion(model_name="llama3")
+query_expansion = QueryExpansion(model_name="vicuna")
 # 定义图像拼接函数
 def image_compose(images_path, image_names, image_column, image_row, image_size, image_save_path):
     to_image = Image.new('RGB', (image_column * image_size, image_row * image_size))  # 创建一个新图
@@ -36,6 +37,32 @@ def dataset_make(datafolder, filenames, dataset_captions):
         print(record_str, file=output_file)  # 将输出写入文件
     output_file.close()  # 关闭文件
     
+def apply_mosaic(image_path, output_path):
+    # 打开图像
+    img = Image.open(image_path)
+    width, height = img.size
+    
+    # 计算中心区域的坐标
+    center_x, center_y = width // 2, height // 2
+    left = center_x - width // 4
+    upper = center_y - height // 4
+    right = center_x + width // 4
+    lower = center_y + height // 4
+    
+    # 获取中心区域
+    center_region = img.crop((left, upper, right, lower))
+    
+    # 将中心区域打马赛克
+    mosaic_size = 10  # 可以调整这个值来改变马赛克的颗粒大小
+    small = center_region.resize((center_region.width // mosaic_size, center_region.height // mosaic_size), resample=Image.NEAREST)
+    mosaic = small.resize(center_region.size, Image.NEAREST)
+    
+    # 将马赛克区域粘贴回原图
+    img.paste(mosaic, (left, upper))
+    
+    # 保存处理后的图像
+    img.save(output_path)
+    
 def generate_input_imgs_multi_prompts(task_vector:dict, sd_unet_path:str, pretrain_unet_path:str, model_id:str, model_name="1.5"):
     print(pretrain_unet_path)
     fresh_sd(sd_unet_path, pretrain_unet_path)
@@ -60,7 +87,9 @@ def generate_input_imgs_multi_prompts(task_vector:dict, sd_unet_path:str, pretra
         pipe = pipe.to("cuda")
         
         
-        for images_config in task_vector["images_configs"]:
+        #for images_config in task_vector["images_configs"]:
+        if True:
+            images_config = task_vector["images_configs"]
             label_context = images_config['label_context']
             real_context = images_config['real_context']
             expand_key = images_config['expand_key']
@@ -82,6 +111,8 @@ def generate_input_imgs_multi_prompts(task_vector:dict, sd_unet_path:str, pretra
                     img_filename = "prompt-"+folder_name+"-time-"+str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+"-"+str(idx)+".png"
                     img_filenames.append(img_filename)
                     image.save(task_vector['input_data_dir']+"/"+img_filename)
+                    if "mosaic" in task_vector and task_vector["mosaic"]==True:
+                        apply_mosaic(task_vector['input_data_dir']+"/"+img_filename, task_vector['input_data_dir']+"/"+img_filename)
             dataset_make(task_vector['input_data_dir'], img_filenames, swap_prompt_list)
             
 def generate_demo_imgs(model_id, gen_num, gen_prompt_list, gen_filename_list, folder_name, num_images_per_prompt:int=1, width=512, height=512, model_name="1.5"):

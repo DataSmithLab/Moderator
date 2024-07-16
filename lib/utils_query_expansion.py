@@ -65,6 +65,7 @@ class QueryExpansion:
 
         return self.parse_response(response)
 
+    # I now have a content: {str(context_desc)}. 
     def blank_expansion2list(
         self,
         context_desc:dict,
@@ -75,7 +76,7 @@ class QueryExpansion:
         I now have a structure describing a certain content: [obj: '', sty: '', act: ''] In the structure: 
         - The obj context describes certain objects or entities in the moderated content.
         - The sty context describes harmful styles of moderated content. 
-        - The act context describes the action or activity the obj context takes. I now have a content: {str(context_desc)}. 
+        - The act context describes the action or activity the obj context takes. 
         You need to expand the missing variables of this content's context. Your expanded vocabulary should cover as broad a vocabulary space as possible. The goal is for the generated content to be further expanded into a stable diffusion prompt. For {expand_key}, you need to expand {expand_num}. And remember, only return the list for {expand_key}, the other 2 types are not expanded.
         Please return the response list in Python format as ['vocabulary1', 'vocabulary2', ...]. Not any addtional words are permitted.
         '''
@@ -94,6 +95,8 @@ class QueryExpansion:
                 context_list = self.blank_expansion2list(
                     context_desc, expand_num, expand_key=context_key
                 )
+                # TODO
+                context_list = context_list*10
                 print(context_key, context_list)
                 for i in range(0, expand_num):
                     expanded_context_desc_list[i][context_key] = context_list[i]
@@ -152,7 +155,7 @@ class QueryExpansion:
             '''
             )
             prompt_list.append(
-                expand_prompt.replace("\n", " ").replace("[[[", "").replace("]]]", "")
+                expand_prompt.replace("\n", " ").replace("[[[", "").replace("]]]", "").replace('"', '')
             )
         return prompt_list
 
@@ -191,13 +194,18 @@ class QueryExpansion:
         self,
         question_prompt
     ):
-        response = ollama.chat(model=self.model_name, messages=[
-            {
-                'role': 'user',
-                'content': question_prompt,
-            },
-        ])
-        result = response['message']['content']
-        
-        #print("query prompt:", question_prompt, "response:", result)
+        while True:
+            response = ollama.chat(
+                model=self.model_name, messages=[
+                {
+                    'role': 'user',
+                    'content': question_prompt,
+                },
+            ])
+            result = response['message']['content']
+            print("\n\n\n\n query prompt:", question_prompt, "response:", result, "\n\n\n")
+            if "cannot" not in result and "can't" not in result:
+                break
+            else:
+                continue
         return result

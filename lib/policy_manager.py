@@ -11,7 +11,7 @@ from lib.utils_config import exp_config_gen
 class conceptPermissionConfig:
     def __init__(self, model_name="1.5"):
         self.model_name = model_name
-        self.work_dir = "/home/featurize/work/ModeratorAE"#os.environ.get("LLMEthicsPatchHome")
+        self.work_dir = os.environ.get("ModeratorWordDir")
         if self.model_name == "1.5":
             self.sd_path = self.work_dir+"/stable-diffusion-v1-5"
             self.sd_unet_path=self.work_dir+"/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin"
@@ -53,7 +53,7 @@ class ModeratorPolicyManager:
 
     def single_task_vector_parse(
             self,
-            label_content_dict:dict, # {obj:, sty:, act:}
+            label_content_dict:dict, # {obj:, sty:, act:, scale:}
             real_content_dict:dict,
             content_operator:str, # "-" or "+"
             expand_type,
@@ -65,6 +65,8 @@ class ModeratorPolicyManager:
             "input_num": 100,
             "name": content_name,
             "operator": content_operator,
+            "train_step":300,
+            "scale":eval(label_content_dict["scale"])/100,
             "images_configs":{
                 "image_name": content_name,
                 "expand_type": expand_type,
@@ -90,7 +92,8 @@ class ModeratorPolicyManager:
             "model_name": "xl",
             "task_vectors": []
         }
-        if policy_dict["method"]=="REMOVE":
+        print(policy_dict)
+        if policy_dict["method"]=="remove":
             remove_task_vector = self.single_task_vector_parse(
                 label_content_dict=policy_dict["src_content"],
                 real_content_dict=policy_dict["src_content"],
@@ -99,7 +102,7 @@ class ModeratorPolicyManager:
                 expand_key = policy_dict["expand_context"]
             )
             yaml_dict["task_vectors"].append(remove_task_vector)
-        elif policy_dict["method"]=="REPLACE":
+        elif policy_dict["method"]=="replace":
             src_task_vector = self.single_task_vector_parse(
                 label_content_dict=policy_dict["src_content"],
                 real_content_dict=policy_dict["src_content"],
@@ -116,7 +119,7 @@ class ModeratorPolicyManager:
             )
             yaml_dict["task_vectors"].append(src_task_vector)
             yaml_dict["task_vectors"].append(dst_task_vector)
-        elif policy_dict["method"]=="MOSAIC":
+        elif policy_dict["method"]=="mosaic":
             src_task_vector = self.single_task_vector_parse(
                 label_content_dict=policy_dict["src_content"],
                 real_content_dict=policy_dict["src_content"],
@@ -131,6 +134,8 @@ class ModeratorPolicyManager:
                 expand_type=policy_dict["expand_type"],
                 expand_key=policy_dict["expand_context"]
             )
+            dst_task_vector["mosaic"]=True
+            dst_task_vector["name"]+="-mosaic"
             yaml_dict["task_vectors"].append(src_task_vector)
             yaml_dict["task_vectors"].append(dst_task_vector)
         return yaml_dict
@@ -223,7 +228,7 @@ class ModeratorPolicyManager:
     ):
         with open(config_yaml, "r") as yaml_file:
             config_data = yaml.safe_load(yaml_file)
-        data = json.dumps(config_data)
+        data = config_data
         
         model_name = data['model_name']
         args = conceptPermissionConfig(model_name)

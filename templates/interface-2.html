@@ -73,7 +73,7 @@
                     <button class="btn btn-light btn-block">Search Policies</button>
                     <button class="btn btn-light btn-block">Clear</button>
                     -->
-                    <button class="btn btn-light btn-block">Add Policy</button>
+                    <button class="btn btn-light btn-block" id="add-policy-button" onclick="addPolicy()">Add Policy</button>
                 </div>
                 <div class="panel">
                     <h4>Policy List</h4>
@@ -133,6 +133,29 @@
                         </div>
                     </div>
                     
+                    <div class="container slider-container">
+                      <h2>Adjust Scale</h2>
+                      <input type="range" class="custom-range" id="slider" min="0" max="100" step="1" value="100">
+                      <div class="progress mt-3">
+                        <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <!--<p class="mt-3">Scale Value: <span id="scaleValue">0</span>%</p>-->
+                    </div>
+                    
+                    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+                    
+                    <script>
+                      document.getElementById('slider').addEventListener('input', function() {
+                        var scale_value = this.value;
+                          <!--document.getElementById('progressBar').style.width = value + '%';-->
+                        <!--document.getElementById('progressBar').setAttribute('aria-valuenow', value);-->
+                        <!--document.getElementById('scaleValue').textContent = value; -->
+                      });
+                    </script>
+                    
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <select class="form-control" id="expand_method">
@@ -191,26 +214,43 @@
         const domain = window.location.hostname;
         const port = window.location.port;
         const full_domain = domain + ":" + port;
+        
+        function addPolicy() {
+            document.getElementById('src_obj').value="";
+            document.getElementById('src_sty').value="";
+            document.getElementById('src_act').value="";
+            document.getElementById('dst_obj').value="";
+            document.getElementById('dst_sty').value="";
+            document.getElementById('dst_act').value="";
+            document.getElementById('method').value="";
+            document.getElementById('purpose').value="";
+            document.getElementById('expand_context').value="";
+            document.getElementById('expand_method').value="";
+            var policy_name=null
+        }
 
         function generatePolicy() {
+            alert("Start to generate. Please wait until the alert comes again.");
             const generatePolicyButton = document.getElementById('generate-policy-button');
             const policy_dict = {
                 src_content: {
                     obj: document.getElementById('src_obj').value,
                     sty: document.getElementById('src_sty').value,
-                    act: document.getElementById('src_act').value
+                    act: document.getElementById('src_act').value,
+                    scale: document.getElementById('slider').value
                 },
                 dst_content: {
                     obj: document.getElementById('dst_obj').value,
                     sty: document.getElementById('dst_sty').value,
-                    act: document.getElementById('dst_act').value
+                    act: document.getElementById('dst_act').value,
+                    scale: document.getElementById('slider').value
                 },
                 method: document.getElementById('method').value,
                 purpose: document.getElementById('purpose').value,
                 expand_context: document.getElementById('expand_context').value,
                 expand_type: document.getElementById('expand_method').value
             };
-            const policy_name = document.getElementById('policy_name').value;
+            var policy_name = document.getElementById('policy_name').value;
 
             fetch("http://" + full_domain + '/model_edit', {
                 method: 'POST',
@@ -229,6 +269,8 @@
         }
 
         function generateImage() {
+            alert("Start to generate. Please wait until the alert comes again.");
+            var policy_name = document.getElementById('policy_name').value;
             const prompt = document.getElementById('example-prompt').value;
 
             const generateImageButton = document.getElementById('generate-image-button');
@@ -255,12 +297,13 @@
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ policy_name: "Policy-NakedWoman-Remove", prompt: prompt })
+                        body: JSON.stringify({ policy_name: policy_name, prompt: prompt })
                     })
                         .then(response => response.json())
                         .then(data => {
                             const afterModerationContainer = document.getElementById('after-moderation');
                             afterModerationContainer.innerHTML = '';
+                            alert("Generation complete");
                             data.forEach(imagePath => {
                                 const img = document.createElement('img');
                                 img.src = imagePath;
@@ -268,6 +311,7 @@
                             });
                         });
                 }).catch(error => {
+                    alert("Generation failed");
                     console.error('Error:', error);
                 });
         }

@@ -20,6 +20,8 @@ from PIL import Image
 from lib.edit_database import EditDatabase
 import psutil
 
+WORK_DIR = os.environ.get("ModeratorWordDir")
+
 def get_database():
     edit_database = EditDatabase()
     return edit_database
@@ -103,7 +105,7 @@ def convert_to_dict(input_str):
     # 遍历每个键值对
     for pair in pairs:
         # 分割键和值
-        ##print(pair)
+        print(pair)
         key, value = pair.split('": "')
 
         # 去除多余的字符并将键值对添加到字典中
@@ -177,7 +179,7 @@ def finetuned_unet_extract_xl(finetuned_model_name, finetuned_unet_name, backup_
 def finetune_model_xl(task_vector:dict, model_id):
     make_folder(task_vector['finetuned_model_dir'])
     toml_path=xl_finetune_toml_make(task_vector)
-    script_path = "/home/featurize/work/ModeratorAE/ConceptPermission/sd-scripts/sdxl_train.py"
+    script_path = WORK_DIR+"/ConceptPermission/sd-scripts/sdxl_train.py"
     args = [
         "--pretrained_model_name_or_path", model_id,
         "--output_dir", task_vector['finetuned_model_dir'],
@@ -195,7 +197,7 @@ def finetune_model_xl(task_vector:dict, model_id):
     command_str = " ".join(args)
     print(command_str)
     subprocess.run(command, check=True)
-    finetuned_unet_extract_safetensors(task_vector['finetuned_model_dir']+"/output_model.safetensors", task_vector['finetuned_model_dir']+"/finetuned_unet.safetensors", "/home/featurize/work/ModeratorAE/stable-diffusion-xl-base-1.0/unet_backup/diffusion_pytorch_model.safetensors")
+    finetuned_unet_extract_safetensors(task_vector['finetuned_model_dir']+"/output_model.safetensors", task_vector['finetuned_model_dir']+"/finetuned_unet.safetensors", WORK_DIR+"/stable-diffusion-xl-base-1.0/unet_backup/diffusion_pytorch_model.safetensors")
 
 def finetune_model(task_vector:dict, model_name):
     make_folder(task_vector['finetuned_model_dir'])

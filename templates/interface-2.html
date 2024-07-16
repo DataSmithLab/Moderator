@@ -52,11 +52,13 @@
         <div class="row">
             <div class="col-3" style="background-color: white; min-height: 100vh;">
                 <div class="panel">
-                        <h4>Search Policies</h4>
-                        <div class="form-group">
+                        <h4>Manage Policies</h4>
+                        <!--<div class="form-group">
                             <input type="text" class="form-control" placeholder="Enter keyword">
                         </div>
+                        -->
                         <button class="btn btn-light btn-block" id="add-policy-button" onclick="addPolicy()" style="background-color:lightblue">Add Policy</button>
+                        <button class="btn btn-light btn-block" id="add-policy-button" onclick="addPolicy()" style="background-color:lightblue">Activate Chosen Policies</button>
                     </div>
                 <hr>
                 <div class="panel">
@@ -306,10 +308,11 @@
                     const policyList = document.getElementById('policy-list');
                     data.forEach(policyName => {
                         const policyItem = document.createElement('div');
+                        policyItem.style.color = 'black';
                         policyItem.className = 'form-check';
                         policyItem.innerHTML = `
                             <input type="checkbox" class="form-check-input"> ${policyName}
-                            <div class="btn-group" role="group">
+                            <div class="btn-group" role="group" style="color:black">
                                 <button class="btn btn-sm btn-light" onclick="editPolicy('${policyName}')">Edit</button>
                                 <button class="btn btn-sm btn-light" onclick="deletePolicy('${policyName}')">Delete</button>
                             </div>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Moderation Tool</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .panel {
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .example-section {
+            padding: 20px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+        }
+        .policy-list {
+            overflow-y: auto;
+            max-height: 500px;
+            background-color: #343a40;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .policy-list .form-check {
+            color: white;
+        }
+        .example-images img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .form-control, .form-check-input, .btn {
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel">
+                    <h4>Search Policies</h4>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Enter keyword">
+                    </div>
+                    <!--
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <select class="form-control">
+                                <option value="method">Method</option>
+                                <option value="content">Content</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <select class="form-control">
+                                <option value="harm">Harm</option>
+                                <option value="piracy">Piracy</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-light btn-block">Search Policies</button>
+                    <button class="btn btn-light btn-block">Clear</button>
+                    -->
+                    <button class="btn btn-light btn-block">Add Policy</button>
+                </div>
+                <div class="panel">
+                    <h4>Policy List</h4>
+                    <div class="policy-list" id="policy-list">
+                        <!-- Policy items will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="panel">
+                    <h4>Enter Example Prompt</h4>
+                    <textarea class="form-control" id="example-prompt" rows="13"></textarea>
+                    <button class="btn btn-light btn-block mt-2" onclick="generateImage()">Generate Image</button>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="panel">
+                    <h4>Moderation Policy</h4>
+                    <div class="form-group">
+                        <!--<label for="policy_name">Policy Name:</label>-->
+                        <input type="text" class="form-control" id="policy_name" placeholder="Policy Name">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="method">
+                            <option value="replace">REPLACE</option>
+                            <option value="remove">REMOVE</option>
+                            <option value="mosaic">MOSAIC</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" id="src_obj" placeholder="Source Object">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" id="dst_obj" placeholder="Destination Object">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" id="src_sty" placeholder="Source Style">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" id="dst_sty" placeholder="Destination Style">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" id="src_act" placeholder="Source Action">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" id="dst_act" placeholder="Destination Action">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <select class="form-control" id="expand_method">
+                                <option value="sub-concepts">Sub-concepts</option>
+                                <option value="synonyms">Synonyms</option>
+                                <option value="description">Description</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <select class="form-control" id="expand_context">
+                                <option value="obj">obj</option>
+                                <option value="sty">sty</option>
+                                <option value="act">act</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <select class="form-control" id="purpose">
+                                <option value="piracy">Piracy</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <button class="btn btn-light btn-block" onclick="generatePolicy()">Generate Policy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="example-section">
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <h4>Examples Before Moderation:</h4>
+                            <div id="before-moderation" class="example-images">
+                                <!-- Images will be displayed here -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Examples After Moderation:</h4>
+                            <div id="after-moderation" class="example-images">
+                                <!-- Images will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const domain = window.location.hostname;
+        const port = window.location.port;
+        const full_domain = domain + ":" + port;
+
+        function generatePolicy() {
+            const generatePolicyButton = document.getElementById('generate-policy-button');
+            const policy_dict = {
+                src_content: {
+                    obj: document.getElementById('src_obj').value,
+                    sty: document.getElementById('src_sty').value,
+                    act: document.getElementById('src_act').value
+                },
+                dst_content: {
+                    obj: document.getElementById('dst_obj').value,
+                    sty: document.getElementById('dst_sty').value,
+                    act: document.getElementById('dst_act').value
+                },
+                method: document.getElementById('method').value,
+                purpose: document.getElementById('purpose').value,
+                expand_context: document.getElementById('expand_context').value,
+                expand_type: document.getElementById('expand_method').value
+            };
+            const policy_name = document.getElementById('policy_name').value;
+
+            fetch("http://" + full_domain + '/model_edit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "policy_name": policy_name, "policy_dict": policy_dict })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Policy Moderation Complete');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function generateImage() {
+            const prompt = document.getElementById('example-prompt').value;
+
+            const generateImageButton = document.getElementById('generate-image-button');
+
+            fetch("http://" + full_domain + '/pretrain_img_generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ prompt: prompt })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const beforeModerationContainer = document.getElementById('before-moderation');
+                    beforeModerationContainer.innerHTML = '';
+                    data.forEach(imagePath => {
+                        const img = document.createElement('img');
+                        img.src = imagePath;
+                        beforeModerationContainer.appendChild(img);
+                    });
+
+                    fetch("http://" + full_domain + '/img_generate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ policy_name: "Policy-NakedWoman-Remove", prompt: prompt })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            const afterModerationContainer = document.getElementById('after-moderation');
+                            afterModerationContainer.innerHTML = '';
+                            data.forEach(imagePath => {
+                                const img = document.createElement('img');
+                                img.src = imagePath;
+                                afterModerationContainer.appendChild(img);
+                            });
+                        });
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function loadPolicies() {
+            fetch("http://" + full_domain + '/get_all_policies')
+                .then(response => response.json())
+                .then(data => {
+                    const policyList = document.getElementById('policy-list');
+                    data.forEach(policyName => {
+                        const policyItem = document.createElement('div');
+                        policyItem.className = 'form-check';
+                        policyItem.innerHTML = `
+                            <input type="checkbox" class="form-check-input"> ${policyName}
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-sm btn-light" onclick="editPolicy('${policyName}')">Edit</button>
+                                <button class="btn btn-sm btn-light" onclick="deletePolicy('${policyName}')">Delete</button>
+                            </div>
+                        `;
+                        policyList.appendChild(policyItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function editPolicy(policyName) {
+            fetch(`http://${full_domain}/get_policy_by_name?name=${policyName}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ policy_name: policyName })
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    document.getElementById('policy_name').value = policyName;
+
+                    document.getElementById('src_obj').value = data.src_content.obj;
+                    document.getElementById('dst_obj').value = data.dst_content.obj;
+
+                    document.getElementById('src_sty').value = data.src_content.sty;
+                    document.getElementById('dst_sty').value = data.dst_content.sty;
+
+                    document.getElementById('src_act').value = data.src_content.act;
+                    document.getElementById('dst_act').value = data.dst_content.act;
+
+                    document.getElementById('method').value = data.method;
+                    document.getElementById('purpose').value = data.purpose;
+
+                    document.getElementById('expand_context').value = data.expand_context;
+                    document.getElementById('expand_method').value = data.expand_type;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        loadPolicies();
+    </script>
+</body>
+
+</html>

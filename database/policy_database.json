@@ -5,6 +5,11 @@
       "sty": "",
       "act": ""
     },
+    "dst_content": {
+      "obj": "",
+      "sty": "",
+      "act": ""
+    },
     "method": "REMOVE",
     "purpose": "piracy",
     "expand_context": "obj",

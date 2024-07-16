@@ -12,7 +12,7 @@ policy_manager = ModeratorPolicyManager()
 
 @app.route('/index')
 def index():
-    return render_template('interface.html')
+    return render_template('interface-2.html')
 
 @app.route('/pretrain_img_generate', methods=['POST'])
 def pretrain_img_generate():

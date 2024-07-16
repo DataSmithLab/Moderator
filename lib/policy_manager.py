@@ -65,7 +65,7 @@ class ModeratorPolicyManager:
             "input_num": 100,
             "name": content_name,
             "operator": content_operator,
-            "train_step":300,
+            "train_step":500,
             "scale":eval(label_content_dict["scale"])/100,
             "images_configs":{
                 "image_name": content_name,

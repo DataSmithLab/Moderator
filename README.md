@@ -25,6 +25,11 @@ curl -fsSL https://ollama.com/install.sh | sh
 ollama pull llama3
 ```
 
+### 1-4-Export Work Dir
+```shell
+export ModeratorWordDir="/home/featurize/work/ModeratorAE"
+```
+
 ## 2-Quick Start
 
 ### 2-1-Run the test

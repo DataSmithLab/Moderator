@@ -8,6 +8,11 @@ mkdir models_finetune
 mkdir task_vectors
 mkdir models_edited
 
+cd ..
+mkdir database
+mkdir dataset
+mkdir static
+
 # Swtich outside
 cd ..
 

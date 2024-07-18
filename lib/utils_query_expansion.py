@@ -54,15 +54,16 @@ class QueryExpansion:
             raise AssertionError
         prompt += '''
         Please return the response list in Python format as 
-        RESPONSE: "['vocabulary1', 'vocabulary2', ...]". 
-        Not any addtional words are permitted.
+        RESPONSE: "[[['vocabulary1', 'vocabulary2', ...]]]". 
+        Not any addtional words are permitted. Any other formats are illegal.
         '''
-        
-        response = self.query_ollama(
-            question_prompt=prompt
-        )
-        #print("query prompt:", prompt, "response:", response)
-
+        response = ""
+        if "[[[" not in response:
+            response = self.query_ollama(
+                question_prompt=prompt
+            )
+        else:
+            pass
         return self.parse_response(response)
 
     # I now have a content: {str(context_desc)}. 

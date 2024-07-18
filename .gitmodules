@@ -1,3 +1,6 @@
 [submodule "backend"]
 	path = backend
 	url = git@github.com:WhileBug/ConceptPermissionBackend.git
+[submodule "sd-scripts"]
+	path = sd-scripts
+	url = https://github.com/WhileBug/sd-scripts.git

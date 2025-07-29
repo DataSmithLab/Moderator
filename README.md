@@ -6,8 +6,8 @@
 
 ```shell
 cd Moderator
-conda env create --prefix moderator --file moderator.yaml
-conda activate moderator
+conda env create --prefix moderator_env --file moderator.yaml
+conda activate moderator_env
 ```
 
 Install diffuser module from GitHub.

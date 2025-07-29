@@ -1,0 +1,5 @@
+Please list the synonyms of this vocabulary: {vocabulary}. 
+You are asked to list {expand_num} of synonyms.
+Please return the response list in Python format as 
+Response format should be like: ["vocabulary1", "vocabulary2", ...]
+Not any addtional words are permitted. Any other formats are illegal.

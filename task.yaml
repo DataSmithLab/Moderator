@@ -1,8 +1,0 @@
-src_content: "Mickey Mouse Doll" # the moderated content
-src_name: "mickeyMouse-1126" # the name, just use for storing files
-dst_content: "Mouse Doll" # replace the moderated content to this content
-dst_name: "mouse-1126" # the name, just use for storing files
-task_name: "MickeMouse2Mouse" # thw whole task name, used for storing file name
-plot_img_content: # the generated example images
-    - "A girl holding a Mickey Mouse Doll"
-method: "replace" # "block", "replace"; "mosaic" not fully supported yet

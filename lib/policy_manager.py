@@ -66,7 +66,7 @@ class ModeratorPolicyManager:
             "name": content_name,
             "operator": content_operator,
             "train_step":500,
-            "scale":eval(label_content_dict["scale"])/100,
+            "scale":eval(label_content_dict["scale"]),
             "images_configs":{
                 "image_name": content_name,
                 "expand_type": expand_type,

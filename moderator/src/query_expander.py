@@ -1,5 +1,6 @@
 from moderator.src.llm import LLM
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+import copy
 
 class QueryExpander:
     def __init__(
@@ -86,14 +87,11 @@ class QueryExpander:
             expand_num=expand_num
         )
         response = self.llm.query(
+            system_prompt=None,
             user_prompt=prompt
         )
         return self.llm.parse_llm_output_list(response)
     
-    @retry(
-        stop=stop_after_attempt(10),
-        retry=retry_if_exception_type(Exception)
-    )
     def blank_expansion(
             self,
             context_desc:dict,
@@ -112,10 +110,6 @@ class QueryExpander:
                     expanded_context_desc_list[i][context_key] = context_list[i]
         return expanded_context_desc_list
 
-    @retry(
-        stop=stop_after_attempt(10),
-        retry=retry_if_exception_type(Exception)
-    )
     def content_expansion(
         self,
         context_desc:dict,
@@ -153,6 +147,10 @@ class QueryExpander:
                     swap_final_context_list.append(
                         temp_expanded_context_desc
                     )
+            print(
+                final_context_list,
+                swap_final_context_list
+            )
             return final_context_list, swap_final_context_list
 
     @retry(
@@ -173,16 +171,29 @@ class QueryExpander:
             )
         return prompt_list
 
-    @retry(
-        stop=stop_after_attempt(10),
-        retry=retry_if_exception_type(Exception)
-    )
+    def prompt_concate(
+            self,
+            context_list
+    ):
+        prompt_list = []
+        for context in context_list:
+            prompt = "object:{obj}, style:{sty}, action:{act}".format(
+                obj=context["obj"],
+                sty=context["sty"],
+                act=context["act"]
+            )
+            prompt_list.append(
+                prompt
+            )
+        return prompt_list
+
     def overall_expansion(
         self,
         input_context_desc:dict,
         swap_context_desc:dict=None,
         expand_1_key="obj",
         expand_1_type = "synonyms",
+        prompt_expand=False
     ):
         if swap_context_desc is None:
             context_list = self.content_expansion(
@@ -192,7 +203,10 @@ class QueryExpander:
                 expand_1_type = expand_1_type,
                 expand_num_2 = 30
             )
-            prompt_list = self.prompt_expansion(context_list=context_list)
+            if prompt_expand:
+                prompt_list = self.prompt_expansion(context_list=context_list)
+            else:
+                prompt_list = self.prompt_concate(context_list=context_list)
             return prompt_list
         else:
             context_list, swap_context_list = self.content_expansion(
@@ -203,6 +217,10 @@ class QueryExpander:
                 expand_num_2=30,
                 swap_value_1=swap_context_desc[expand_1_key]
             )
-            real_prompt_list = self.prompt_expansion(context_list=context_list)
-            swap_prompt_list = self.prompt_expansion(context_list=swap_context_list)
+            if prompt_expand:
+                real_prompt_list = self.prompt_expansion(context_list=context_list)
+                swap_prompt_list = self.prompt_expansion(context_list=swap_context_list)
+            else:
+                real_prompt_list = self.prompt_concate(context_list=context_list)
+                swap_prompt_list = self.prompt_concate(context_list=swap_context_list)
             return real_prompt_list, swap_prompt_list

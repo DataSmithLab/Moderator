@@ -2,3 +2,5 @@ archived_moderator/*
 moderator_env/*
 */__pycache__/*
 *.pyc
+/test
+*.log

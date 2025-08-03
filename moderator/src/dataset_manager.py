@@ -4,6 +4,7 @@ import json
 import os
 from moderator.src.configs.task_vector_config import TVConfig
 from moderator.src.model_manager import ModelManager
+import toml
 
 class DatasetManager:
     def __init__(
@@ -93,11 +94,10 @@ class DatasetManager:
     def generate_tv_dataset(
             self,
             task_vector_config:TVConfig, 
-            sd_unet_path:str,
             model_manager:ModelManager
         ):
         image_filenames, label_prompts = model_manager.generate_images(
-            sd_unet_path=sd_unet_path,
+            sd_unet_path=self.moderator_config.pretrain_unet_path,
             image_config=task_vector_config.image_config
         )
         self.dataset_metadata_generate(
@@ -105,3 +105,34 @@ class DatasetManager:
             image_filenames=image_filenames,
             label_prompts=label_prompts
         )
+        if self.model_name == "sdxl":
+            self.xl_finetune_toml_make(
+                task_vector_config=task_vector_config
+            )
+
+    def xl_finetune_toml_make(
+            self,
+            task_vector_config: TVConfig
+        ):
+        toml_path = task_vector_config.finetuned_model_toml_path
+        toml_config = {
+            'general': {
+                'shuffle_caption': True, 
+                'keep_tokens': 1
+            },
+            'datasets': [
+                {
+                    'resolution': [512, 512],
+                    'batch_size': 1,
+                    'subsets': [
+                        {
+                            'image_dir': task_vector_config.image_config.folder_path,
+                            'metadata_file': task_vector_config.image_config.folder_path+'/metadata.json'
+                        }
+                    ]
+                }
+            ]
+        }
+        with open(toml_path, 'w+') as f:
+            toml.dump(toml_config, f)
+        return toml_path

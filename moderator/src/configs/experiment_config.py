@@ -51,6 +51,8 @@ class ExperimentConfig:
 
         self.task_vectors_configs = self.generate_task_vectors()
 
+        self.merge=False #TODO
+
     def __str__(self) -> str:
         return '''
         ExperimentConfig(

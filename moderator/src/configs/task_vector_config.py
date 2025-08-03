@@ -32,6 +32,14 @@ class TVConfig:
             task_vectors_dir = self.moderator_config.task_vectors_dir,
             name = self.name
         )
+        self.finetuned_model_folder_path = "{finetuned_models_dir}/{name}".format(
+            finetuned_models_dir = self.moderator_config.finetuned_models_dir,
+            name = self.name
+        )
+        self.finetuned_model_toml_path = "{finetuned_models_dir}/{name}/fine_tune.toml".format(
+            finetuned_models_dir = self.moderator_config.finetuned_models_dir,
+            name = self.name
+        )
 
         self.image_config: ImageConfig = None
     

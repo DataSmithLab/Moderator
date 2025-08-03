@@ -40,12 +40,12 @@ class ModeratorConfig:
         self.img_dir = "{work_id}/Moderator/data/images".format(
             work_id=self.work_dir
         )
-        self.finetuned_models_dir = "{work_id}/Moderator/files/models_finetune/".format(
+        self.finetuned_models_dir = "{work_id}/Moderator/files/models_finetune".format(
             work_id=self.work_dir
         )
-        self.edited_models_dir = "{work_id}/Moderator/files/models_edited/".format(
+        self.edited_models_dir = "{work_id}/Moderator/files/models_edited".format(
             work_id=self.work_dir
         )
-        self.task_vectors_dir = "{work_id}/Moderator/files/task_vectors/".format(
+        self.task_vectors_dir = "{work_id}/Moderator/files/task_vectors".format(
             work_id=self.work_dir
         )

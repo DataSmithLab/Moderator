@@ -11,7 +11,7 @@ class ImageConfig:
             img_names:List[str], 
             img_real_prompts:List[str], 
             img_label_prompts:List[str],
-            gen_img_num_per_prompt:int
+            gen_img_num_per_prompt:int=1
         ) -> None:
         self.moderator_config = moderator_config
         self.model_name = moderator_config.model_name

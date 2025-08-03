@@ -33,11 +33,6 @@ class TVConfig:
             name = self.name
         )
 
-        self.tv_finetune_image_folder_path = "{img_dir}/{name}.png".format(
-            img_dir = self.moderator_config.img_dir,
-            name = self.name
-        )
-
         self.image_config: ImageConfig = None
     
     def __str__(self) -> str:

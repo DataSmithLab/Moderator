@@ -7,9 +7,8 @@ import PIL.Image as Image
 import os
 from diffusers import StableDiffusionPipeline, StableDiffusionXLPipeline
 import torch
-import datetime
 
-import shutil
+from moderator.src.dataset_manager import DatasetManager
 
 class ModelManager:
     def __init__(
@@ -60,59 +59,44 @@ class ModelManager:
         else:
             print(f"Dataset Folder Exists: {folder_path}")
 
-    def generate_input_imgs_multi_prompts(
+    def generate_images(
+            self,
+            sd_unet_path:str,
+            image_config:ImageConfig
+        ):
+        self.make_folder(
+            folder_path=image_config.folder_path
+        )
+        self.fresh_sd(
+            sd_unet_path
+        )
+        pipe = self.get_sd_pipe()
+        image_filenames = []
+        label_prompts = []
+        for real_prompt, label_prompt, image_name in zip(image_config.img_real_prompts, image_config.img_label_prompts, image_config.img_names):
+            image = pipe(
+                real_prompt, 
+                num_images_per_prompt=image_config.gen_img_num_per_prompt, 
+                width=1024, 
+                height=1024
+            ).images[0]
+            img_filename = image_name+".png"
+            image_filenames.append(img_filename)
+            image.save(image_config.folder_path+"/"+img_filename)
+            label_prompts.append(label_prompt)
+        return image_filenames, label_prompts
+
+    def generate_tv_images(
             self,
             task_vector_config:TVConfig, 
             sd_unet_path:str
         ):
-        self.fresh_sd(
-            sd_unet_path
+        image_filenames, label_prompts = self.generate_images(
+            sd_unet_path=sd_unet_path,
+            image_config=task_vector_config.image_config
         )
-        self.make_folder(task_vector['input_data_dir'])
-        if task_vector['trained']==1:
-            pass
-        else:
-            '''
-            image generate
-            '''
-            if model_name == "1.5":
-                pipe = StableDiffusionPipeline.from_pretrained(
-                    model_id, 
-                    safety_checker=None,
-                )
-            elif model_name == "xl":
-                pipe = StableDiffusionXLPipeline.from_pretrained(
-                    model_id, 
-                    torch_dtype=torch.float16, 
-                    safety_checker=None
-                )
-            pipe = pipe.to("cuda")
-            
-            
-            #for images_config in task_vector["images_configs"]:
-            if True:
-                images_config = task_vector["images_configs"]
-                label_context = images_config['label_context']
-                real_context = images_config['real_context']
-                expand_key = images_config['expand_key']
-                expand_type = images_config['expand_type']
-                folder_name = images_config['image_name']
-
-                real_prompt_list, swap_prompt_list = query_expansion.overall_expansion(
-                    input_context_desc=real_context,
-                    swap_context_desc=label_context,
-                    expand_1_key=expand_key,
-                    expand_1_type=expand_type
-                )
-
-                img_filenames = []
-                #for i in range(task_vector['input_num']//task_vector['gen_img_num_per_prompt']):
-                for real_prompt, label_prompt in zip(real_prompt_list, swap_prompt_list):
-                    images = pipe(real_prompt, num_images_per_prompt=task_vector['gen_img_num_per_prompt'], width=1024, height=1024).images
-                    for idx, image in enumerate(images): 
-                        img_filename = "prompt-"+folder_name+"-time-"+str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))+"-"+str(idx)+".png"
-                        img_filenames.append(img_filename)
-                        image.save(task_vector['input_data_dir']+"/"+img_filename)
-                        if "mosaic" in task_vector and task_vector["mosaic"]==True:
-                            apply_mosaic(task_vector['input_data_dir']+"/"+img_filename, task_vector['input_data_dir']+"/"+img_filename)
-                dataset_make(task_vector['input_data_dir'], img_filenames, swap_prompt_list)
+        DatasetManager.dataset_make(
+            dataset_dir=task_vector_config.image_config.folder_path,
+            image_filenames=image_filenames,
+            label_prompts=label_prompts
+        )

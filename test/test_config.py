@@ -1,5 +1,5 @@
-from moderator.src.moderator_config import ModeratorConfig
-from moderator.src.experiment_config import ExperimentConfig
+from moderator.src.configs.moderator_config import ModeratorConfig
+from moderator.src.configs.experiment_config import ExperimentConfig
 from moderator.src.context_desc import ContextDesc
 import os
 
@@ -23,7 +23,9 @@ experiment_config = ExperimentConfig(
     src_content=src_content,
     dst_content=dst_content,
     method=method,
-    moderator_config=moderator_config
+    moderator_config=moderator_config,
+    expand_key="obj",
+    expand_type="synonyms"
 )
 
 print(

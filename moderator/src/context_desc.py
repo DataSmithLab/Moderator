@@ -19,6 +19,9 @@ class ContextDesc:
             "act":self.act
         }
     
+    def __str__(self) -> str:
+        return json.dumps(self.to_dict())
+    
     def get_blank_contexts(self):
         blank_contexts = []
         for key, value in self.to_dict().items():

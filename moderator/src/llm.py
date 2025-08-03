@@ -27,6 +27,7 @@ class LLM:
             ]
         )
         result = response['message']['content']
+
         return self.remove_tags_content(text=result)
     
     def parse_llm_output_list( 

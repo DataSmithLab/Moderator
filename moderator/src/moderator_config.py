@@ -11,7 +11,7 @@ class ModeratorConfig:
             self.work_dir = work_dir
         else:
             self.work_dir = os.environ.get("ModeratorWorkDir")
-        if self.model_name == "1.5":
+        if self.model_name == "sd1.5":
             self.sd_path = "{work_id}/stable-diffusion-v1-5".format(
                 work_id=self.work_dir
             )
@@ -21,7 +21,7 @@ class ModeratorConfig:
             self.pretrain_unet_path = "{sd_path}/unet_backup/unet_original_diffusion_pytorch_model.bin".format(
                 sd_path=self.sd_path
             )
-        elif self.model_name == "xl":
+        elif self.model_name == "sdxl":
             self.sdxl_path = "{work_id}/stable-diffusion-xl-base-1.0".format(
                 work_id=self.work_dir
             )
@@ -35,6 +35,9 @@ class ModeratorConfig:
                 sd_path=self.sd_path
             )    
         self.data_dir = "{work_id}/Moderator/data".format(
+            work_id=self.work_dir
+        )
+        self.img_dir = "{work_id}/Moderator/data/images".format(
             work_id=self.work_dir
         )
         self.finetuned_models_dir = "{work_id}/Moderator/files/models_finetune/".format(

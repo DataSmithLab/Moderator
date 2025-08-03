@@ -3,3 +3,5 @@ moderator_env/*
 */__pycache__/*
 *.pyc
 *.log
+nohup.out
+test.sh

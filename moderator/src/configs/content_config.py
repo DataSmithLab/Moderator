@@ -1,4 +1,5 @@
 from moderator.src.context_desc import ContextDesc
+from moderator.src.configs.image_config import ImageConfig
 
 class ContentConfig:
     def __init__(

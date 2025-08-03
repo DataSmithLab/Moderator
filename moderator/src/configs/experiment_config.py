@@ -9,13 +9,19 @@ class ExperimentConfig:
             task_name:str,
             src_content:ContextDesc,
             dst_content:ContextDesc,
+            expand_key:str,
+            expand_type:str,
             method:str,
             moderator_config:ModeratorConfig
         ) -> None:
         self.task_name = task_name
         self.src_content = src_content
         self.dst_content = dst_content
+
         self.method = method
+        self.expand_key = expand_key
+        self.expand_type = expand_type
+
         self.moderator_config = moderator_config
 
         self.model_name = self.moderator_config.model_name
@@ -69,13 +75,17 @@ class ExperimentConfig:
                 self.src_content, 
                 self.dst_content, 
                 self.src_tv_name, 
-                self.dst_tv_name
+                self.dst_tv_name,
+                self.expand_key,
+                self.expand_type
             )
         elif self.method == "block":
             task_vectors_configs = self.tv_config_generator.neg_tvs(
                 self.src_content, 
                 None, 
                 self.src_tv_name, 
-                None
+                None,
+                self.expand_key,
+                self.expand_type
             )
         return task_vectors_configs

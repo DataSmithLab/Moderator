@@ -7,7 +7,7 @@ from typing import List
 class QueryExpander:
     def __init__(
         self,
-        model_name = "llama3.1:8b",
+        model_name = "qwen3:8b",
         prompts_folder_path = "moderator/prompts",
     ):
         self.model_name = model_name

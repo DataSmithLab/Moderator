@@ -1,5 +1,5 @@
 from typing import List
-from moderator.src.moderator_config import ModeratorConfig
+from moderator.src.configs.moderator_config import ModeratorConfig
 
 
 class ImageConfig:

@@ -1,7 +1,7 @@
 from typing import List
-from moderator.src.moderator_config import ModeratorConfig
+from moderator.src.configs.moderator_config import ModeratorConfig
 from moderator.src.context_desc import ContextDesc
-from moderator.src.content_config import ContentConfig
+from moderator.src.configs.content_config import ContentConfig
 
 DEFAULT_INPUT_NUM = 50
 DEFAULT_TRAIN_STEP = 500

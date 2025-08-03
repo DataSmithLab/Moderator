@@ -1,7 +1,7 @@
 from typing import List
 from moderator.src.context_desc import ContextDesc
-from moderator.src.moderator_config import ModeratorConfig
-from moderator.src.task_vector_config import TVConfigGenerator
+from moderator.src.configs.moderator_config import ModeratorConfig
+from moderator.src.configs.task_vector_config import TVConfigGenerator
 
 class ExperimentConfig:
     def __init__(

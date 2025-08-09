@@ -8,3 +8,6 @@ test.sh
 stable-diffusion-xl-base-1.0/*
 moderator_conda/*
 stable-diffusion-xl-base-1.0/
+
+data/
+files/

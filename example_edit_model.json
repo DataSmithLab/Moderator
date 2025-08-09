@@ -1,0 +1,17 @@
+{
+    "task_type": "edit_model",
+    "task_name": "sdxl-test",
+    "src_content": {
+        "obj": "cat",
+        "sty": null,
+        "act": null
+    },
+    "dst_content": {
+        "obj": "dog",
+        "sty": null,
+        "act": null
+    },
+    "expand_key": "obj",
+    "expand_type": "synonym",
+    "method": "replace"
+}

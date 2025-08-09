@@ -1,5 +1,5 @@
 {
-    "task_type": "edit_model",
+    "task_type": "model_edit",
     "task_name": "sdxl-test",
     "src_content": {
         "obj": "cat",

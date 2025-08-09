@@ -6,6 +6,7 @@ from moderator.src.configs.moderator_config import ModeratorConfig
 from moderator.src.configs.task_vector_config import TVConfig
 from moderator.src.configs.experiment_config import PolicyConfig
 from moderator.src.configs.image_config import ImageConfig
+from moderator.src.policy_manager import PolicyManager
 import os
 
 class ModeratorManager:
@@ -18,6 +19,7 @@ class ModeratorManager:
         self.dataset_manager = DatasetManager(moderator_config)
         self.finetune_manager = FinetuneManager(moderator_config)
         self.task_vector_manager = TaskVectorManager(moderator_config)
+        self.policy_manager = PolicyManager()
     
     def get_task_vector(self, task_vector_config:TVConfig):
         self.finetune_manager.finetune_on_task(
@@ -28,6 +30,12 @@ class ModeratorManager:
         )
 
     def edit_model(self, policy_config:PolicyConfig):
+        
+        if not self.policy_manager.check_policy(policy_config.task_name):
+            self.policy_manager.add_policy(policy_config)
+        else:
+            return
+
         task_vectors_configs = policy_config.task_vectors_configs
 
         for task_vector_config in task_vectors_configs:

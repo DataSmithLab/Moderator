@@ -1,5 +1,5 @@
 from typing import List
-from moderator.src.context_desc import ContextDesc
+from moderator.src.context_desc import ContextDesc, build_context_desc_from_dict
 from moderator.src.configs.moderator_config import ModeratorConfig
 from moderator.src.configs.task_vector_config import TVConfigGenerator
 import json
@@ -72,6 +72,22 @@ class PolicyConfig:
             edited_unet_path=self.edited_unet_path
         )
 
+    def to_dict(self):
+        return {
+            "task_name":self.task_name,
+            "src_content":self.src_content.to_dict(),
+            "dst_content":self.dst_content.to_dict(),
+            "method":self.method,
+            "expand_key":self.expand_key,
+            "expand_type":self.expand_type,
+            "moderator_config":self.moderator_config.to_dict(),
+            "task_vectors_configs":[tv_config.to_dict() for tv_config in self.task_vectors_configs],
+            "edited_unet_path":self.edited_unet_path,
+            "merge":self.merge,
+            "src_tv_name":self.src_tv_name,
+            "dst_tv_name":self.dst_tv_name
+        }
+
     def generate_task_vectors(self):
         if self.method=="replace":
             task_vectors_configs = self.tv_config_generator.replace_tvs(
@@ -98,8 +114,8 @@ def build_policy_config_from_dict(
     moderator_config:ModeratorConfig
 ):
     task_name = exp_config_dict["task_name"]
-    src_content = ContextDesc.from_dict(exp_config_dict["src_content"])
-    dst_content = ContextDesc.from_dict(exp_config_dict["dst_content"])
+    src_content = build_context_desc_from_dict(exp_config_dict["src_content"])
+    dst_content = build_context_desc_from_dict(exp_config_dict["dst_content"])
     expand_key = exp_config_dict["expand_key"]
     expand_type = exp_config_dict["expand_type"]
     method = exp_config_dict["method"]

@@ -18,13 +18,6 @@ class ContextDesc:
             "sty":self.sty,
             "act":self.act
         }
-
-    def from_dict(cls, context_dict:dict):
-        return cls(
-            obj=context_dict["obj"],
-            sty=context_dict["sty"],
-            act=context_dict["act"]
-        )
     
     def __str__(self) -> str:
         return json.dumps(self.to_dict())
@@ -48,3 +41,10 @@ class ContextDesc:
             self.act = context_value
         else:
             raise ValueError("context_key must be obj, sty or act")
+
+def build_context_desc_from_dict(context_dict:dict):
+    return ContextDesc(
+            obj=context_dict["obj"],
+            sty=context_dict["sty"],
+            act=context_dict["act"]
+        )

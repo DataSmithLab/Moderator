@@ -5,7 +5,7 @@ from moderator.src.dataset_manager import DatasetManager
 from moderator.src.model_manager import ModelManager
 import toml
 import subprocess
-
+import torch
 
 class FinetuneManager:
     def __init__(
@@ -42,10 +42,6 @@ class FinetuneManager:
         command_str = " ".join(args)
         print(command_str)
         subprocess.run(command, check=True)
-        
-        #new_task_vector = TaskVector()
-        #new_task_vector.
-        #finetuned_unet_extract_safetensors(task_vector['finetuned_model_dir']+"/output_model.safetensors", task_vector['finetuned_model_dir']+"/finetuned_unet.safetensors", WORK_DIR+"/stable-diffusion-xl-base-1.0/unet_backup/diffusion_pytorch_model.safetensors")
 
     def finetune_model(self, task_vector_config:TVConfig, model_name):
         self.model_manager.make_folder(task_vector_config.finetuned_model_folder_path)

@@ -7,6 +7,9 @@ class PolicyManager:
         self.database_path = "moderator/data/policy_database.json"
         self.policy_database = self.load_database()
         
+    def check_policy(self, policy_name: str):
+        return policy_name in self.policy_database
+
     def get_all_policies(self):
         return list(self.policy_database.keys())
 
@@ -19,6 +22,14 @@ class PolicyManager:
         with open(self.database_path, "w")as f:
             json.dump(self.policy_database, f)
 
-    def add_policy(self, new_policy_dict, new_policy_name):
-        self.policy_database[new_policy_name] = new_policy_dict
+    def add_policy(self, policy_config: PolicyConfig):
+        self.policy_database[policy_config.task_name] = policy_config.to_dict()
         self.write_database()
+
+    def delete_policy(self, policy_name: str):
+        if policy_name in self.policy_database:
+            del self.policy_database[policy_name]
+            self.write_database()
+            return True
+        else:
+            return False

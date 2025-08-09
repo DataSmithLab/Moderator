@@ -49,3 +49,17 @@ class ModeratorConfig:
         self.task_vectors_dir = "{work_id}/files/task_vectors".format(
             work_id=self.work_dir
         )
+
+    def to_dict(self):
+        return {
+            "model_name":self.model_name,
+            "work_dir":self.work_dir,
+            "sd_path":self.sd_path,
+            "sd_unet_path":self.sd_unet_path,
+            "pretrain_unet_path":self.pretrain_unet_path,
+            "data_dir":self.data_dir,
+            "img_dir":self.img_dir,
+            "finetuned_models_dir":self.finetuned_models_dir,
+            "edited_models_dir":self.edited_models_dir,
+            "task_vectors_dir":self.task_vectors_dir
+        }

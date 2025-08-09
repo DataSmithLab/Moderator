@@ -18,6 +18,13 @@ class ContextDesc:
             "sty":self.sty,
             "act":self.act
         }
+
+    def from_dict(cls, context_dict:dict):
+        return cls(
+            obj=context_dict["obj"],
+            sty=context_dict["sty"],
+            act=context_dict["act"]
+        )
     
     def __str__(self) -> str:
         return json.dumps(self.to_dict())

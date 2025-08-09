@@ -49,6 +49,22 @@ class ModelManager:
             self.runtime_unet_path
         )
 
+    def generate_images_pretrain(
+            self,
+            image_config:ImageConfig
+        ):
+        self.generate_images(
+            self.pretrain_unet_path,
+            image_config
+        )
+
+    def make_folder(
+            self,
+            folder_path:str
+        ):
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+
     def generate_images(
             self,
             sd_unet_path:str,

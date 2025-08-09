@@ -5,6 +5,7 @@ from moderator.src.task_vector_manager import TaskVectorManager
 from moderator.src.configs.moderator_config import ModeratorConfig
 from moderator.src.configs.task_vector_config import TVConfig
 from moderator.src.configs.experiment_config import ExperimentConfig
+from moderator.src.configs.image_config import ImageConfig
 import os
 
 class ModeratorManager:
@@ -37,3 +38,15 @@ class ModeratorManager:
             merge=exp_config.merge
         )
         return exp_config.edited_unet_path
+
+    def generate_pretrain_image(self, image_config:ImageConfig):
+        self.model_manager.generate_images_pretrain(
+            image_config
+        )
+        return image_config.folder_path
+
+    def generate_image(self, image_config:ImageConfig):
+        self.model_manager.generate_images(
+            image_config
+        )
+        return image_config.folder_path

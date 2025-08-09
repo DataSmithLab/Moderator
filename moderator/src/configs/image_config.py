@@ -36,3 +36,17 @@ class ImageConfig:
             "img_prompts": self.img_prompts,
             "gen_img_num_per_prompt": self.gen_img_num_per_prompt
         }
+    
+def build_image_config_from_dict(
+        moderator_config:ModeratorConfig,
+        image_config_dict:dict
+    ):
+    return ImageConfig(
+        moderator_config,
+        image_config_dict["folder_name"],
+        image_config_dict["img_gen_num"],
+        image_config_dict["img_names"],
+        image_config_dict["img_real_prompts"],
+        image_config_dict["img_label_prompts"],
+        image_config_dict["gen_img_num_per_prompt"]
+    )

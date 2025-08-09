@@ -11,3 +11,28 @@ Follow the instruction of [init.sh](init.sh) to install the environment.
 ```shell
 bash init.sh
 ```
+
+## 3-Run the test
+```
+python main.py
+```
+
+## 4-Reference
+```
+@inproceedings{10.1145/3658644.3690327,
+    author = {Wang, Peiran and Li, Qiyu and Yu, Longxuan and Wang, Ziyao and Li, Ang and Jin, Haojian},
+    title = {Moderator: Moderating Text-to-Image Diffusion Models through Fine-grained Context-based Policies},
+    year = {2024},
+    isbn = {9798400706363},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3658644.3690327},
+    doi = {10.1145/3658644.3690327},
+    booktitle = {Proceedings of the 2024 on ACM SIGSAC Conference on Computer and Communications Security},
+    pages = {1181–1195},
+    numpages = {15},
+    keywords = {content moderation, policy language, text-to-image model},
+    location = {Salt Lake City, UT, USA},
+    series = {CCS '24}
+}
+``` 

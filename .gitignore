@@ -11,3 +11,5 @@ stable-diffusion-xl-base-1.0/
 
 data/
 files/
+clip-vit-large-patch14/
+CLIP-ViT-bigG-14-laion2B-39B-b160k/

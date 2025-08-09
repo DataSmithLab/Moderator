@@ -1,9 +1,0 @@
-folder_name: /sp_example/sp_example
-gen_img_num_per_prompt: 1
-img_gen_num: 20
-img_names:
-- takeDrug_after
-img_prompts:
-- "A woman sitting on the sofa with sunken eyes, wrinkles, dark hair, real style, high res, gray tones"
-model_name: xl
-unet_path: /home/featurize/work/stable-diffusion-xl-base-1.0/unet_backup/diffusion_pytorch_model.safetensors

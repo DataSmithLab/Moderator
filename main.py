@@ -1,52 +1,54 @@
-from lib.utils_config import exp_config_gen
-import requests
-import json
-import yaml
+from moderator.src.moderator_manager import ModeratorManager
+from moderator.src.configs.moderator_config import ModeratorConfig
+from moderator.src.configs.experiment_config import PolicyConfig, build_policy_config_from_dict
+from moderator.src.configs.image_config import ImageConfig, build_image_config_from_dict
 import argparse
+import json
 
-#parser = argparse.ArgumentParser()
-#parser.add_argument("square", help="display a square of a given number")
-#args = parser.parse_args()
+class ModeratorArgPaser:
+    def __init__(self):
+        self.parser = argparse.ArgumentParser()
+        self.parser.add_argument("--model_name", type=str, default="sdxl")
+        self.parser.add_argument("--work_dir", type=str, default="sdxl")
+        self.parser.add_argument("--exp_config_filepath", type=str, default="exp_config.json")
+        self.args = self.parser.parse_args()
 
-def edit_request_example(config_yaml):
-    url = 'http://127.0.0.1:5000/model_edit'
-    #config_yaml="config_edit.yaml')"
-    with open(config_yaml, "r") as yaml_file:
-        config_data = yaml.safe_load(yaml_file)
-    data = json.dumps(config_data)
-    r = requests.post(url, data=data, timeout=10000)
-    while True:
-        if r.status_code==500:
-            r = requests.post(url, data=data, timeout=10000)
-        else:
-            break
-    return r.text
+    def get_args(self):
+        return self.args
 
-def img_request_example(config_yaml):
-    url = 'http://127.0.0.1:5000/img_generate'
-    #config_yaml="config_img.yaml')"
-    with open(config_yaml, "r") as yaml_file:
-        config_data = yaml.safe_load(yaml_file)
-    print(config_data)
-    data = json.dumps(config_data)
-    r = requests.post(url, data=data, timeout=100000)
-    return r.text
+if __name__ == "__main__":
+    parser = ModeratorArgPaser()
+    args = parser.get_args()
 
-def main():
-    with open("task.yaml", "r") as yaml_file:
-        task_data = yaml.safe_load(yaml_file)
-    print(task_data)
-    edit_config_filename, img_config_filename, generate_img_folder = exp_config_gen(
-        src_content=task_data["src_content"],
-        dst_content=task_data["dst_content"],
-        src_name=task_data["src_name"],
-        dst_name=task_data["dst_name"],
-        task_name=str(task_data["task_name"]),
-        plot_img_contents=task_data["plot_img_content"],
-        method=task_data["method"]
+    moderator_config = ModeratorConfig(
+        model_name=args.model_name,
+        work_dir=args.work_dir
     )
-    print("image will be generated to ", generate_img_folder)
-    edit_request_example(edit_config_filename)
-    img_request_example(img_config_filename)
-    
-main()
+    moderator_manager = ModeratorManager(moderator_config)
+
+    exp_config = json.load(open(args.exp_config_filepath, "r"))
+    task_type = exp_config["task_type"]
+    if task_type == "generate_pretrain_image":
+        image_config = build_image_config_from_dict(
+            moderator_config,
+            exp_config
+        )
+        folder_path = moderator_manager.generate_pretrain_image(
+            image_config
+        )
+    elif task_type == "generate_image":
+        image_config = build_image_config_from_dict(
+            moderator_config,
+            exp_config
+        )
+        folder_path = moderator_manager.generate_image(
+            image_config
+        )
+    elif task_type == "model_edit":
+        policy_config = build_policy_config_from_dict(
+            exp_config,
+            moderator_config
+        )    
+        folder_path = moderator_manager.edit_model(
+            policy_config
+        )

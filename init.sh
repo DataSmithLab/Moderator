@@ -8,25 +8,34 @@ mkdir models_finetune
 mkdir task_vectors
 mkdir models_edited
 
-cd ..
-mkdir database
-mkdir dataset
-mkdir static
-
 # Swtich outside
 cd ..
 
 # Install stable-diffusion-XL
+
+# If you can download the model quickly
 git lfs clone https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0.git
+# If not, try this
+git clone https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0.git
+# Download the required files of the model
+bash download.sh
+
 cd stable-diffusion-xl-base-1.0
 mkdir unet_backup
-cp unet/diffusion_pytorch_model.safetensors unet_backup/diffusion_pytorch_model.safetensors
+cp unet/diffusion_pytorch_model.fp16.safetensors unet_backup/diffusion_pytorch_model.fp16.safetensors
 cd ..
-mkdir unet_backup
 
 # Install encoder for sd-scripts
 git lfs clone https://huggingface.co/openai/clip-vit-large-patch14
 git lfs clone https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k
 
+# Initialize virtual environments
+conda env create --prefix moderator_conda --file moderator.yaml
+conda activate moderator_conda
+pip install -r requirements.txt
 
-export LLMEthicsPatchHome=/home/featurize/work/ModeratorAE
+
+# Install ollama
+curl -fsSL https://ollama.com/install.sh | sh
+ollama serve
+ollama pull llama3:8b

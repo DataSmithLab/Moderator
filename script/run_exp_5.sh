@@ -1,1 +1,0 @@
-python main.py --config_yaml="/root/autodl-fs/LLMEthicsPatches/configs/exp-5-mosaic/gun2toy.yaml"

@@ -1,0 +1,5 @@
+Please write a specific description of this vocabulary: {vocabulary}. 
+Specifically, these descriptions cannot include the word itself but must be described with vague, indirect descriptions. 
+You are asked to list {expand_num} descriptions.
+Response format should be like: ["vocabulary1", "vocabulary2", ...]
+Not any addtional words are permitted. Any other formats are illegal.

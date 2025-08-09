@@ -1,7 +1,7 @@
 from moderator.src.moderator_manager import ModeratorManager
 from moderator.src.configs.moderator_config import ModeratorConfig
 from moderator.src.configs.experiment_config import PolicyConfig, build_policy_config_from_dict
-from moderator.src.configs.image_config import ImageConfig
+from moderator.src.configs.image_config import ImageConfig, build_image_config_from_dict
 import argparse
 import json
 
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     exp_config = json.load(open(args.exp_config_filepath, "r"))
     task_type = exp_config["task_type"]
     if task_type == "generate_pretrain_image":
-        image_config = ImageConfig(
+        image_config = build_image_config_from_dict(
             moderator_config,
             exp_config
         )
@@ -37,7 +37,7 @@ if __name__ == "__main__":
             image_config
         )
     elif task_type == "generate_image":
-        image_config = ImageConfig(
+        image_config = build_image_config_from_dict(
             moderator_config,
             exp_config
         )

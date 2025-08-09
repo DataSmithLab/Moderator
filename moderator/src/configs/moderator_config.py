@@ -28,10 +28,10 @@ class ModeratorConfig:
             self.sd_path = "{sdxl_path}".format(
                 sdxl_path=self.sdxl_path
             )
-            self.sd_unet_path = "{sd_path}/unet/diffusion_pytorch_model.safetensors".format(
+            self.sd_unet_path = "{sd_path}/unet/diffusion_pytorch_model.fp16.safetensors".format(
                 sd_path=self.sd_path
             )
-            self.pretrain_unet_path = "{sd_path}/unet_backup/diffusion_pytorch_model.safetensors".format(
+            self.pretrain_unet_path = "{sd_path}/unet_backup/diffusion_pytorch_model.fp16.safetensors".format(
                 sd_path=self.sd_path
             )    
         self.data_dir = "{work_id}/data".format(

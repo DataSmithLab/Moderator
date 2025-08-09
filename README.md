@@ -1,47 +1,13 @@
-# Moderator: Moderating Text-to-Image Diffusion Models through Fine-grained Context-based Policies
+# [ACM CCS 2024] Moderator: Moderating Text-to-Image Diffusion Models through Fine-grained Context-based Policies
 
-## 1-Prerequisite
+## 1-Introduction
 
-### 1-1-Install environment
+We present Moderator, a policy-based model management system that allows administrators to specify fine-grained content moderation policies and modify the weights of a text-to-image (TTI) model to make it significantly more challenging for users to produce images that violate the policies. In contrast to existing general-purpose model editing techniques, which unlearn concepts without considering the associated contexts, Moderator allows admins to specify what content should be moderated, under which context, how it should be moderated, and why moderation is necessary. Given a set of policies, Moderator first prompts the original model to generate images that need to be moderated, then uses these self-generated images to reverse fine-tune the model to compute task vectors for moderation and finally negates the original model with the task vectors to decrease its performance in generating moderated content. We evaluated Moderator with 14 participants to play the role of admins and found they could quickly learn and author policies to pass unit tests in approximately 2.29 policy iterations. Our experiment with 32 stable diffusion users suggested that Moderator can prevent 65% of users from generating moderated content under 15 attempts and require the remaining users an average of 8.3 times more attempts to generate undesired content.
 
-```shell
-cd Moderator
-conda env create --prefix moderator_env --file moderator.yaml
-conda activate moderator_env
-```
+## 2-Prerequisite
 
-Install diffuser module from GitHub.
-
-### 1-2-Initialize the environment
+Follow the instruction of [init.sh](init.sh) to install the environment.
 
 ```shell
-chmod +x ./init.sh
-bash ./init.sh
+bash init.sh
 ```
-
-### 1-3-Install Ollama and pull Llama3
-```shell
-curl -fsSL https://ollama.com/install.sh | sh
-ollama pull llama3
-```
-
-### 1-4-Export Work Dir
-```shell
-export ModeratorWordDir="Input your work dir, the original dir for the clone."
-```
-
-## 2-Quick Start
-
-### 2-1-Run the test
-First run the command below to start the backend
-```shell
-python main_backend.py
-```
-This will start a backend on flask on http://127.0.0.1:7417/
-It will provide several interfaces:
-- pretrain_img_generate: Pass the prompt to generate images on pretrained models. See example in [AE_policy_result.py](AE_policy_result.py)
-- img_generate: Pass the prompt to generate images on moderated models. See example in [AE_policy_result.py](AE_policy_result.py)
-- craft_config: Pass the config to generate policy. See example in [AE_policy_craft.py](AE_policy_craft.py)
-You can craft scripts to use the interfaces, and you can also use our frontend interface.
-
-Then you can access http://localhost:7417/index to use the frontend interface.

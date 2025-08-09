@@ -1,14 +1,11 @@
 import os
 from moderator.src.configs.image_config import ImageConfig
 from moderator.src.configs.moderator_config import ModeratorConfig
-from moderator.src.configs.task_vector_config import TVConfig
 
-import PIL.Image as Image
 import os
 from diffusers import StableDiffusionPipeline, StableDiffusionXLPipeline
 import torch
 
-from moderator.src.dataset_manager import DatasetManager
 
 class ModelManager:
     def __init__(
@@ -31,7 +28,9 @@ class ModelManager:
             pipe = StableDiffusionXLPipeline.from_pretrained(
                 self.model_folder_path, 
                 torch_dtype=torch.float16, 
-                safety_checker=None
+                safety_checker=None,
+                use_safetensors=True, 
+                variant="fp16"
             )
         pipe = pipe.to("cuda")
         return pipe

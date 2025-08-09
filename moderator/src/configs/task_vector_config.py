@@ -2,7 +2,7 @@ from typing import List
 from moderator.src.configs.moderator_config import ModeratorConfig
 from moderator.src.context_desc import ContextDesc
 from moderator.src.configs.content_config import ContentConfig
-from moderator.src.query_expander import QueryExpander
+#from moderator.src.query_expander import QueryExpander
 from moderator.src.configs.image_config import ImageConfig
 
 
@@ -74,10 +74,37 @@ class TVConfig:
             "content_config": self.content_config.to_dict()
         }
 
+class SimpleQueryExpander:
+    def __init__(self) -> None:
+        pass
+
+    def return_prompt(self, context_desc:ContextDesc):
+        return "obj:{obj}, sty:{sty}, act:{act}".format(
+            obj = context_desc.obj,
+            sty = context_desc.sty,
+            act = context_desc.act
+        )
+
+    def overall_expansion(
+            self,
+            input_context_desc=None,
+            swap_context_desc=None,
+            expand_key=None,
+            expand_type=None
+        ):
+        input_prompt = self.return_prompt(input_context_desc)
+        if swap_context_desc is not None:
+            swap_prompt = self.return_prompt(swap_context_desc)
+            return [input_prompt]*120, [swap_prompt]*120
+        else:
+            return [input_prompt]*120
+    
+
 class TVConfigGenerator:
     def __init__(self, moderator_config: ModeratorConfig) -> None:
         self.moderator_config = moderator_config
-        self.query_expander = QueryExpander()
+        self.query_expander = SimpleQueryExpander()
+        #self.query_expander = QueryExpander()
 
     def add_tv(
             self,

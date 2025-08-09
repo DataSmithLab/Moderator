@@ -12,7 +12,14 @@ mkdir models_edited
 cd ..
 
 # Install stable-diffusion-XL
+
+# If you can download the model quickly
 git lfs clone https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0.git
+# If not, try this
+git clone https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0.git
+# Download the required files of the model
+bash download.sh
+
 cd stable-diffusion-xl-base-1.0
 mkdir unet_backup
 cp unet/diffusion_pytorch_model.fp16.safetensors unet_backup/diffusion_pytorch_model.fp16.safetensors

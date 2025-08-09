@@ -1,6 +1,6 @@
 from moderator.src.moderator_manager import ModeratorManager
 from moderator.src.configs.moderator_config import ModeratorConfig
-from moderator.src.configs.experiment_config import ExperimentConfig, build_exp_config_from_dict
+from moderator.src.configs.experiment_config import PolicyConfig, build_policy_config_from_dict
 from moderator.src.configs.image_config import ImageConfig
 import argparse
 import json
@@ -45,10 +45,10 @@ if __name__ == "__main__":
             image_config
         )
     elif task_type == "model_edit":
-        experiment_config = build_exp_config_from_dict(
+        policy_config = build_policy_config_from_dict(
             exp_config,
             moderator_config
         )    
         folder_path = moderator_manager.edit_model(
-            experiment_config
+            policy_config
         )

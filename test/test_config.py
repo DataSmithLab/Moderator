@@ -1,5 +1,5 @@
 from moderator.src.configs.moderator_config import ModeratorConfig
-from moderator.src.configs.experiment_config import ExperimentConfig
+from moderator.src.configs.experiment_config import PolicyConfig
 from moderator.src.context_desc import ContextDesc
 import os
 
@@ -18,7 +18,7 @@ moderator_config = ModeratorConfig(
     work_dir=os.environ.get("ModeratorWorkDir")
 )
 
-experiment_config = ExperimentConfig(
+experiment_config = PolicyConfig(
     task_name=task_name,
     src_content=src_content,
     dst_content=dst_content,

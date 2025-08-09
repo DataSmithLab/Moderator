@@ -4,7 +4,7 @@ from moderator.src.finetune_manager import FinetuneManager
 from moderator.src.task_vector_manager import TaskVectorManager
 from moderator.src.configs.moderator_config import ModeratorConfig
 from moderator.src.configs.task_vector_config import TVConfig
-from moderator.src.configs.experiment_config import ExperimentConfig
+from moderator.src.configs.experiment_config import PolicyConfig
 from moderator.src.configs.image_config import ImageConfig
 import os
 
@@ -27,17 +27,17 @@ class ModeratorManager:
             task_vector_config
         )
 
-    def edit_model(self, exp_config:ExperimentConfig):
-        task_vectors_configs = exp_config.task_vectors_configs
+    def edit_model(self, policy_config:PolicyConfig):
+        task_vectors_configs = policy_config.task_vectors_configs
 
         for task_vector_config in task_vectors_configs:
             self.get_task_vector(task_vector_config)
         self.task_vector_manager.task_vector_apply(
-            exp_config.edited_unet_path, 
+            policy_config.edited_unet_path, 
             task_vectors_configs, 
-            merge=exp_config.merge
+            merge=policy_config.merge
         )
-        return exp_config.edited_unet_path
+        return policy_config.edited_unet_path
 
     def generate_pretrain_image(self, image_config:ImageConfig):
         self.model_manager.generate_images_pretrain(

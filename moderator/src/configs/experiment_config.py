@@ -4,7 +4,7 @@ from moderator.src.configs.moderator_config import ModeratorConfig
 from moderator.src.configs.task_vector_config import TVConfigGenerator
 import json
 
-class ExperimentConfig:
+class PolicyConfig:
     def __init__(
             self,
             task_name:str,
@@ -93,7 +93,7 @@ class ExperimentConfig:
             )
         return task_vectors_configs
     
-def build_exp_config_from_dict(
+def build_policy_config_from_dict(
     exp_config_dict:dict,
     moderator_config:ModeratorConfig
 ):
@@ -103,7 +103,7 @@ def build_exp_config_from_dict(
     expand_key = exp_config_dict["expand_key"]
     expand_type = exp_config_dict["expand_type"]
     method = exp_config_dict["method"]
-    return ExperimentConfig(
+    return PolicyConfig(
         task_name=task_name,
         src_content=src_content,
         dst_content=dst_content,
